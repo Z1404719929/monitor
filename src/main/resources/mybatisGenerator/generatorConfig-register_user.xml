@@ -5,7 +5,7 @@
  	<!-- 引入配置文件 -->  
 	<properties resource="init.properties"/>
     
-	<context id="dictionaries">
+	<context id="dictionaries" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
 			<property name="suppressAllComments" value="true" />
@@ -27,7 +27,7 @@
 		</javaModelGenerator>
 		
 		<!-- java客户端类对应的xml映射文件存放位置 -->
-		<sqlMapGenerator targetPackage="mybatis.mappers" targetProject="Xinda-2/src/main/resources" />
+		<sqlMapGenerator targetPackage="mybatis.mappers" targetProject="Monitor/src/main/resources" />
 		
 		<!-- java客户端类接口文件存放位置 -->
 		<javaClientGenerator targetPackage="com.datangedu.cn.dao.mapper"

@@ -6,10 +6,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 
 
 @SpringBootApplication
-public class Xinda2Application {
+public class MonitorApplication {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(Xinda2Application.class, args);
+		SpringApplication.run(MonitorApplication.class, args);
 	}
 
 }
