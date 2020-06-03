@@ -10,35 +10,37 @@ function imgChange() {
 	img.src = "imgGetCode?t=" + time;
 }
 
-//点击登录后
+
+//点击注册后
 $(".primary_button").on("click", function(){
 	//取到前端输入的数据
+	var name=$(".name").val();
 	var cellphone=$(".cellphone").val();
 	var password=$(".password").val();
+	var password1=$(".password1").val();
 	var code=$(".code").val();
-	console.log("手机号==",cellphone,password,code);
+	console.log("手机号==",name,cellphone,password,password1,code);
 	$.ajax({
 		type: "post",
-		url: "monitor_login/login",
+		url: "monitor_upwd/upwd",
 		//数据传入后端
 		data:{
+			name:name,
 			cellphone:cellphone,
 			password:password,
+			password1:password1,
 			code:code,
 		},
 		dataType: "json",
 		success: function(data){
 			console.log("成功后返回的数据",data);
-			//如果成功，将id，用户名，状态存入sessionStorage，跳转页面，失败弹窗
+			//如果成功，弹出设置成功，跳转到登录页，失败弹窗
 			if(data.code==1){
-			sessionStorage.setItem("id",data.userid),
-			sessionStorage.setItem("name",data.username),
-			sessionStorage.setItem("status",data.code),
-			location.href="redirect?page=monitor_main"
+			alert(data.msg);
+			location.href="redirect?page=monitor_login"
 			}else{
 				alert(data.msg);
 			}
-//			alert(data.msg);
 		},
 		error: function(data){
 			console.log("失败后返回的数据",data);

@@ -76,7 +76,7 @@
       <!-- Unnamed (文本框) -->
       <div id="u19" class="ax_default text_field">
         <div id="u19_div" class=""></div>
-        <input id="u19_input" type="text" value="" class="u19_input"/>
+        <input id="u19_input" type="text" value="" class="u19_input name"/>
       </div>
 
       <!-- Unnamed (矩形) -->
@@ -94,11 +94,13 @@
           <p><span style="text-decoration:none;">密&nbsp; &nbsp; &nbsp;&nbsp; 码：</span></p>
         </div>
       </div>
+      
+      <p id="msg_pwd" style="margin-left: 150px"></p>
 
       <!-- Unnamed (文本框) -->
       <div id="u22" class="ax_default text_field">
         <div id="u22_div" class=""></div>
-        <input id="u22_input" type="text" value="" class="u22_input"/>
+        <input id="u22_input" type="password" value="" class="u22_input password"/>
       </div>
 
       <!-- Unnamed (矩形) -->
@@ -112,12 +114,12 @@
       <!-- Unnamed (文本框) -->
       <div id="u24" class="ax_default text_field">
         <div id="u24_div" class=""></div>
-        <input id="u24_input" type="text" value="" class="u24_input"/>
+        <input id="u24_input" type="text" value="" class="u24_input code"/>
       </div>
 
       <!-- Unnamed (图片 ) -->
       <div id="u25" class="ax_default _图片_">
-        <img id="u25_img" class="img " src="images/monitor_register/u25.svg"/>
+        <img onclick="imgChange()" class="checkimg" src="imgGetCode"/>
         <div id="u25_text" class="text " style="display:none; visibility: hidden">
           <p></p>
         </div>
@@ -134,7 +136,7 @@
       <!-- Unnamed (文本框) -->
       <div id="u27" class="ax_default text_field">
         <div id="u27_div" class=""></div>
-        <input id="u27_input" type="text" value="" class="u27_input"/>
+        <input id="u27_input" type="password" value="" class="u27_input password1"/>
       </div>
 
       <!-- Unnamed (矩形) -->
@@ -148,7 +150,7 @@
       <!-- Unnamed (文本框) -->
       <div id="u29" class="ax_default text_field">
         <div id="u29_div" class=""></div>
-        <input id="u29_input" type="text" value="" class="u29_input"/>
+        <input id="u29_input" type="text" value="" class="u29_input cellphone"/>
       </div>
 
       <!-- Unnamed (矩形) -->
@@ -169,5 +171,6 @@
       </div>
     </div>
     <script src="resources/scripts/axure/ios.js"></script>
+    <script src="./js/monitor_register.js"></script>
   </body>
 </html>

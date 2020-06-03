@@ -16,15 +16,21 @@ public interface AdminstratorMapper {
 
     int insertSelective(Adminstrator record);
 
+    List<Adminstrator> selectByExampleWithBLOBs(AdminstratorExample example);
+
     List<Adminstrator> selectByExample(AdminstratorExample example);
 
     Adminstrator selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") Adminstrator record, @Param("example") AdminstratorExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") Adminstrator record, @Param("example") AdminstratorExample example);
+
     int updateByExample(@Param("record") Adminstrator record, @Param("example") AdminstratorExample example);
 
     int updateByPrimaryKeySelective(Adminstrator record);
+
+    int updateByPrimaryKeyWithBLOBs(Adminstrator record);
 
     int updateByPrimaryKey(Adminstrator record);
 }

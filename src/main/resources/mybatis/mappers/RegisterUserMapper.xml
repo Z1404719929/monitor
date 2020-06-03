@@ -4,13 +4,15 @@
   <resultMap id="BaseResultMap" type="com.datangedu.cn.model.sysUser.RegisterUser">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="head_img" jdbcType="VARCHAR" property="headImg" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="born" jdbcType="TIMESTAMP" property="born" />
     <result column="cellphone" jdbcType="VARCHAR" property="cellphone" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.datangedu.cn.model.sysUser.RegisterUser">
+    <result column="head_img" jdbcType="LONGVARBINARY" property="headImg" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,8 +73,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_name, head_img, password, born, cellphone, status, register_time, gender
+    id, user_name, password, born, cellphone, status, register_time, gender
   </sql>
+  <sql id="Blob_Column_List">
+    head_img
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.datangedu.cn.model.sysUser.RegisterUserExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from register_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.datangedu.cn.model.sysUser.RegisterUserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -87,9 +108,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from register_user
     where id = #{id,jdbcType=VARCHAR}
   </select>
@@ -104,13 +127,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.datangedu.cn.model.sysUser.RegisterUser">
-    insert into register_user (id, user_name, head_img, 
-      password, born, cellphone, 
-      status, register_time, gender
+    insert into register_user (id, user_name, password, 
+      born, cellphone, status, 
+      register_time, gender, head_img
       )
-    values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{born,jdbcType=TIMESTAMP}, #{cellphone,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{registerTime,jdbcType=TIMESTAMP}, #{gender,jdbcType=INTEGER}
+    values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{born,jdbcType=TIMESTAMP}, #{cellphone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{registerTime,jdbcType=TIMESTAMP}, #{gender,jdbcType=INTEGER}, #{headImg,jdbcType=LONGVARBINARY}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.datangedu.cn.model.sysUser.RegisterUser">
@@ -121,9 +144,6 @@
       </if>
       <if test="userName != null">
         user_name,
-      </if>
-      <if test="headImg != null">
-        head_img,
       </if>
       <if test="password != null">
         password,
@@ -143,6 +163,9 @@
       <if test="gender != null">
         gender,
       </if>
+      <if test="headImg != null">
+        head_img,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -150,9 +173,6 @@
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="headImg != null">
-        #{headImg,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
@@ -172,6 +192,9 @@
       <if test="gender != null">
         #{gender,jdbcType=INTEGER},
       </if>
+      <if test="headImg != null">
+        #{headImg,jdbcType=LONGVARBINARY},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.datangedu.cn.model.sysUser.RegisterUserExample" resultType="java.lang.Long">
@@ -188,9 +211,6 @@
       </if>
       <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.headImg != null">
-        head_img = #{record.headImg,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
@@ -210,7 +230,25 @@
       <if test="record.gender != null">
         gender = #{record.gender,jdbcType=INTEGER},
       </if>
+      <if test="record.headImg != null">
+        head_img = #{record.headImg,jdbcType=LONGVARBINARY},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update register_user
+    set id = #{record.id,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      born = #{record.born,jdbcType=TIMESTAMP},
+      cellphone = #{record.cellphone,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      gender = #{record.gender,jdbcType=INTEGER},
+      head_img = #{record.headImg,jdbcType=LONGVARBINARY}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -219,7 +257,6 @@
     update register_user
     set id = #{record.id,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
-      head_img = #{record.headImg,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       born = #{record.born,jdbcType=TIMESTAMP},
       cellphone = #{record.cellphone,jdbcType=VARCHAR},
@@ -235,9 +272,6 @@
     <set>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="headImg != null">
-        head_img = #{headImg,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
@@ -257,13 +291,27 @@
       <if test="gender != null">
         gender = #{gender,jdbcType=INTEGER},
       </if>
+      <if test="headImg != null">
+        head_img = #{headImg,jdbcType=LONGVARBINARY},
+      </if>
     </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.datangedu.cn.model.sysUser.RegisterUser">
+    update register_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      born = #{born,jdbcType=TIMESTAMP},
+      cellphone = #{cellphone,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      gender = #{gender,jdbcType=INTEGER},
+      head_img = #{headImg,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.datangedu.cn.model.sysUser.RegisterUser">
     update register_user
     set user_name = #{userName,jdbcType=VARCHAR},
-      head_img = #{headImg,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       born = #{born,jdbcType=TIMESTAMP},
       cellphone = #{cellphone,jdbcType=VARCHAR},

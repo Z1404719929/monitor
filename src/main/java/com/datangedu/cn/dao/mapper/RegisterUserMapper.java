@@ -16,15 +16,21 @@ public interface RegisterUserMapper {
 
     int insertSelective(RegisterUser record);
 
+    List<RegisterUser> selectByExampleWithBLOBs(RegisterUserExample example);
+
     List<RegisterUser> selectByExample(RegisterUserExample example);
 
     RegisterUser selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") RegisterUser record, @Param("example") RegisterUserExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") RegisterUser record, @Param("example") RegisterUserExample example);
+
     int updateByExample(@Param("record") RegisterUser record, @Param("example") RegisterUserExample example);
 
     int updateByPrimaryKeySelective(RegisterUser record);
+
+    int updateByPrimaryKeyWithBLOBs(RegisterUser record);
 
     int updateByPrimaryKey(RegisterUser record);
 }
