@@ -22,7 +22,7 @@ import com.datangedu.cn.service.MonitorService;
 @RequestMapping("/monitor_login")
 public class monitor_login {
 	@Resource
-	MonitorService loginservice;
+	MonitorService monitorservice;
 	
 	@ResponseBody
 	@RequestMapping(value = "/login",method = RequestMethod.POST)	//登录路径拦截
@@ -54,7 +54,7 @@ public class monitor_login {
 			return map;
 		}
 		
-		List<MonitorUser> userInfo = loginservice.Selectby(cellphone);
+		List<MonitorUser> userInfo = monitorservice.Selectby(cellphone);
 		if(userInfo.isEmpty()) {
 			map.put("msg","账号不存在" );
 			return map;

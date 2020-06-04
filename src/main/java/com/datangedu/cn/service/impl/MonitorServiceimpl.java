@@ -50,6 +50,12 @@ public class MonitorServiceimpl implements MonitorService{
 		return monitorusermapper.selectByExample(monitoruserExample);
 	}
 	
+	//通过id查找返回对象
+	@Override
+	public MonitorUser Select(String id) {
+			return monitorusermapper.selectByPrimaryKey(id);
+		}
+
 	//修改密码
 	@Override
 	public int updatepassword(MonitorUser mu,String cellphone) {

@@ -77,6 +77,53 @@ public class RandomValueUtil {
         }
         return first+second+third;
     }
+    
+    public static String[] getStart() {
+    	Random rhour = new Random(24);
+    	Random rminute = new Random(60);
+    	String starthour="00";
+    	String endthour="00";
+    	String startminute="00";
+    	String endminute="00";
+    	
+    	int hour1=rhour.nextInt();
+    	int minute1=rminute.nextInt();
+    	System.out.println("时=========="+hour1);
+    	System.out.println("分=========="+minute1);
+    	int hour2=hour1+rhour.nextInt();
+    	int minute2=hour1+rminute.nextInt();
+    	while(hour2>=24||minute2>=60) {
+    	hour2=hour1+rhour.nextInt();
+        minute2=hour1+rminute.nextInt();
+    	}
+    	if(hour1<10) {
+    	starthour="0"+hour1;
+    	}else {
+    	starthour=""+hour1;
+    	}
+    	
+    	if(hour2<10) {
+        endthour="0"+hour2;
+        }else {
+        endthour=""+hour2;
+        }
+    	
+    	if(minute1<10) {
+        startminute="0"+minute1;
+        }else {
+        startminute=""+minute1;
+        }
+        if(minute2<10) {
+        endminute="0"+minute2;
+        }else {
+        endminute=""+minute2;
+        }
+        
+    	String a[]=null;
+    	a[0]=starthour+":"+endthour;
+    	a[1]=startminute+":"+endminute;
+    	return a;
+    }
 
     /**
      * 返回地址 
@@ -126,6 +173,10 @@ public class RandomValueUtil {
     	
     	int a=z.nextInt(60);
     	int b=a+z.nextInt(60);
+    	
+    	String abc[]=RandomValueUtil.getStart();
+    	System.out.println("开始时间"+abc[0].toString());
+    	System.out.println("结束时间"+abc[1].toString());
     	
 //    	System.out.println("b=========="+b+"===="+c);
         for (int i = 0; i < 100; i++) {		
