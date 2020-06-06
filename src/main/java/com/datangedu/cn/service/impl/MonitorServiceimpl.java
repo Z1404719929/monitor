@@ -41,7 +41,7 @@ public class MonitorServiceimpl implements MonitorService{
 
 	//登录查询，通过手机号查用户信息
 	@Override
-	public List<MonitorUser> Selectby(String by) {
+	public List<MonitorUser> Selectbycellphone(String by) {
 		System.out.println("查询前");
 		MonitorUserExample monitoruserExample = new MonitorUserExample();
 		MonitorUserExample.Criteria criteria = monitoruserExample.createCriteria();
@@ -64,5 +64,14 @@ public class MonitorServiceimpl implements MonitorService{
 		criteria.andCellphoneEqualTo(cellphone);
 		return monitorusermapper.updateByExampleSelective(mu, muExample);
 	}
-
+	
+	//用户信息上传
+	@Override
+	public int changeUserinfo(MonitorUser monitoruser,String id){
+		MonitorUserExample muExample = new MonitorUserExample();
+		MonitorUserExample.Criteria criteria = muExample.createCriteria();
+		criteria.andIdEqualTo(id);
+		return monitorusermapper.updateByExampleSelective(monitoruser, muExample);
+		}
+	
 }

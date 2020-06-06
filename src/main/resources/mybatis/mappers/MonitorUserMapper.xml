@@ -10,6 +10,7 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="region_id" jdbcType="VARCHAR" property="regionId" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.datangedu.cn.model.sysUser.MonitorUser">
     <result column="head_img" jdbcType="LONGVARBINARY" property="headImg" />
@@ -73,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_name, password, born, cellphone, status, register_time, gender
+    id, user_name, password, born, cellphone, status, register_time, gender, region_id
   </sql>
   <sql id="Blob_Column_List">
     head_img
@@ -129,12 +130,12 @@
   <insert id="insert" parameterType="com.datangedu.cn.model.sysUser.MonitorUser">
     insert into monitor_user (id, user_name, password, 
       born, cellphone, status, 
-      register_time, gender, head_img
-      )
+      register_time, gender, region_id, 
+      head_img)
     values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{born,jdbcType=TIMESTAMP}, #{cellphone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{registerTime,jdbcType=TIMESTAMP}, #{gender,jdbcType=INTEGER}, #{headImg,jdbcType=LONGVARBINARY}
-      )
+      #{registerTime,jdbcType=TIMESTAMP}, #{gender,jdbcType=INTEGER}, #{regionId,jdbcType=VARCHAR}, 
+      #{headImg,jdbcType=LONGVARBINARY})
   </insert>
   <insert id="insertSelective" parameterType="com.datangedu.cn.model.sysUser.MonitorUser">
     insert into monitor_user
@@ -162,6 +163,9 @@
       </if>
       <if test="gender != null">
         gender,
+      </if>
+      <if test="regionId != null">
+        region_id,
       </if>
       <if test="headImg != null">
         head_img,
@@ -191,6 +195,9 @@
       </if>
       <if test="gender != null">
         #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=VARCHAR},
       </if>
       <if test="headImg != null">
         #{headImg,jdbcType=LONGVARBINARY},
@@ -230,6 +237,9 @@
       <if test="record.gender != null">
         gender = #{record.gender,jdbcType=INTEGER},
       </if>
+      <if test="record.regionId != null">
+        region_id = #{record.regionId,jdbcType=VARCHAR},
+      </if>
       <if test="record.headImg != null">
         head_img = #{record.headImg,jdbcType=LONGVARBINARY},
       </if>
@@ -248,6 +258,7 @@
       status = #{record.status,jdbcType=INTEGER},
       register_time = #{record.registerTime,jdbcType=TIMESTAMP},
       gender = #{record.gender,jdbcType=INTEGER},
+      region_id = #{record.regionId,jdbcType=VARCHAR},
       head_img = #{record.headImg,jdbcType=LONGVARBINARY}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -262,7 +273,8 @@
       cellphone = #{record.cellphone,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       register_time = #{record.registerTime,jdbcType=TIMESTAMP},
-      gender = #{record.gender,jdbcType=INTEGER}
+      gender = #{record.gender,jdbcType=INTEGER},
+      region_id = #{record.regionId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -291,6 +303,9 @@
       <if test="gender != null">
         gender = #{gender,jdbcType=INTEGER},
       </if>
+      <if test="regionId != null">
+        region_id = #{regionId,jdbcType=VARCHAR},
+      </if>
       <if test="headImg != null">
         head_img = #{headImg,jdbcType=LONGVARBINARY},
       </if>
@@ -306,6 +321,7 @@
       status = #{status,jdbcType=INTEGER},
       register_time = #{registerTime,jdbcType=TIMESTAMP},
       gender = #{gender,jdbcType=INTEGER},
+      region_id = #{regionId,jdbcType=VARCHAR},
       head_img = #{headImg,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -317,7 +333,8 @@
       cellphone = #{cellphone,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       register_time = #{registerTime,jdbcType=TIMESTAMP},
-      gender = #{gender,jdbcType=INTEGER}
+      gender = #{gender,jdbcType=INTEGER},
+      region_id = #{regionId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

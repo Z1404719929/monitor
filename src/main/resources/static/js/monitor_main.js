@@ -16,7 +16,7 @@ function img(){
 	var username=sessionStorage.getItem("name");
 	$(".user").html("");
 	var txt="";
-	txt +=`<img src="/monitor_main/headImg?id=${userid}"  style="
+	txt +=`<img src="/headImg?id=${userid}"  style="
     width: 50px;
     height: 50px;
     border-radius: 40px;">${username}`

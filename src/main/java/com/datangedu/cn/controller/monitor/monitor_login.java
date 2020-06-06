@@ -54,7 +54,7 @@ public class monitor_login {
 			return map;
 		}
 		
-		List<MonitorUser> userInfo = monitorservice.Selectby(cellphone);
+		List<MonitorUser> userInfo = monitorservice.Selectbycellphone(cellphone);
 		if(userInfo.isEmpty()) {
 			map.put("msg","账号不存在" );
 			return map;

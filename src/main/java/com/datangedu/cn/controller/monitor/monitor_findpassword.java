@@ -25,7 +25,7 @@ public class monitor_findpassword {
 	MonitorService monitorservice;
 	
 	@ResponseBody
-	@RequestMapping(value = "/upwd",method = RequestMethod.POST)	//登录路径拦截
+	@RequestMapping(value = "/upwd",method = RequestMethod.POST)	//找回密码路径拦截
 	public Map <String,Object> Login(HttpServletRequest request) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		String name=request.getParameter("name");
@@ -58,7 +58,7 @@ public class monitor_findpassword {
 			return map;
 		}
 		//查找手机号是否存在
-		List<MonitorUser> userInfo = monitorservice.Selectby(cellphone);
+		List<MonitorUser> userInfo = monitorservice.Selectbycellphone(cellphone);
 		if(userInfo.isEmpty()) {
 			map.put("msg","手机号不存在" );
 			return map;

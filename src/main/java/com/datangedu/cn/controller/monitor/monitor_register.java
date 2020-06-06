@@ -68,7 +68,7 @@ public class monitor_register {
 			return map;
 		}
 		//查找手机号是否存在
-		List<MonitorUser> userInfo = monitorservice.Selectby(cellphone);
+		List<MonitorUser> userInfo = monitorservice.Selectbycellphone(cellphone);
 		if(!userInfo.isEmpty()) {
 			map.put("msg","账号已存在" );
 			return map;

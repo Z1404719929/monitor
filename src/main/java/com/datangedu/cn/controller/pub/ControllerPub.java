@@ -1,9 +1,13 @@
 package com.datangedu.cn.controller.pub;
 
 import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -11,13 +15,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.datang.hrb.util.ImgCodeUtil;
+import com.datangedu.cn.model.sysUser.MonitorUser;
+import com.datangedu.cn.service.MonitorService;
 
 @Controller
 public class ControllerPub {
+	@Resource
+	MonitorService monitorservice;
+	
 	//网页跳转注解
 	@RequestMapping("/redirect")
 	public String page(HttpServletRequest request) {
@@ -59,4 +73,34 @@ public class ControllerPub {
 		}
 
 	}
+	
+	
+	@ResponseBody	
+	@RequestMapping(value="/headImg", produces = MediaType.IMAGE_PNG_VALUE)		//显示头像
+	public ResponseEntity<byte[]> headImg(String id) throws Exception{
+		System.out.println("tp");
+		byte[] imageContent ;
+		// 根据id获取当前用户的信息
+		MonitorUser user = monitorservice.Select(id);
+				        
+		imageContent = user.getHeadImg();
+		System.out.println("图片==="+user.getHeadImg());
+				        
+		// 设置http头部信息
+		final HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_PNG);
+		// 返回响应实体
+		return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+	}
+	
+
+	    private static File file=null;
+
+	    public static FileInputStream getImageByte(String infile) throws FileNotFoundException{
+	        FileInputStream imageByte=null;
+	        file=new File(infile);
+	        imageByte=new FileInputStream(file);
+	        return imageByte;
+	    }
+
 }

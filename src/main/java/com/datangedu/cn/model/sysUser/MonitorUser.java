@@ -19,6 +19,8 @@ public class MonitorUser {
 
     private Integer gender;
 
+    private String regionId;
+
     private byte[] headImg;
 
     public String getId() {
@@ -83,6 +85,14 @@ public class MonitorUser {
 
     public void setGender(Integer gender) {
         this.gender = gender;
+    }
+
+    public String getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(String regionId) {
+        this.regionId = regionId == null ? null : regionId.trim();
     }
 
     public byte[] getHeadImg() {

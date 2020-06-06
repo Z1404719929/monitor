@@ -35,4 +35,5 @@ public interface MonitorUserMapper {
     int updateByPrimaryKeyWithBLOBs(MonitorUser record);
 
     int updateByPrimaryKey(MonitorUser record);
+
 }
