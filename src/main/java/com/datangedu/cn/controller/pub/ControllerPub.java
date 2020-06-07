@@ -1,10 +1,13 @@
 package com.datangedu.cn.controller.pub;
 
 import java.awt.image.RenderedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -21,11 +24,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.datang.hrb.util.ImgCodeUtil;
 import com.datangedu.cn.model.sysUser.MonitorUser;
 import com.datangedu.cn.service.MonitorService;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 
 @Controller
 public class ControllerPub {
@@ -40,6 +48,7 @@ public class ControllerPub {
 		return url;
 	}
 
+	//验证码
 	@RequestMapping("/imgGetCode")
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		/*
@@ -74,11 +83,11 @@ public class ControllerPub {
 
 	}
 	
-	
+	//头像
 	@ResponseBody	
 	@RequestMapping(value="/headImg", produces = MediaType.IMAGE_PNG_VALUE)		//显示头像
 	public ResponseEntity<byte[]> headImg(String id) throws Exception{
-		System.out.println("tp");
+//		System.out.println("tp");
 		byte[] imageContent ;
 		// 根据id获取当前用户的信息
 		MonitorUser user = monitorservice.Select(id);
@@ -94,13 +103,55 @@ public class ControllerPub {
 	}
 	
 
-	    private static File file=null;
-
-	    public static FileInputStream getImageByte(String infile) throws FileNotFoundException{
-	        FileInputStream imageByte=null;
-	        file=new File(infile);
-	        imageByte=new FileInputStream(file);
-	        return imageByte;
-	    }
+//	    private static File file=null;
+//
+//	    public static FileInputStream getImageByte(String infile) throws FileNotFoundException{
+//	        FileInputStream imageByte=null;
+//	        file=new File(infile);
+//	        imageByte=new FileInputStream(file);
+//	        return imageByte;
+//	    }
+	    
+	//对linux进行操作
+	public String exec(String host,String command){
+		String user="zhaochaoqun";						//登录用户名
+		String psw="123456";							//登录密码
+		int port=22;									//端口号
+		String result="";
+		Session session =null;
+		ChannelExec openChannel =null;
+		try {
+			JSch jsch=new JSch();
+			session = jsch.getSession(user, host, port);
+			java.util.Properties config = new java.util.Properties();
+			config.put("StrictHostKeyChecking", "no");
+			session.setConfig(config);
+			session.setPassword(psw);
+			session.connect();
+			openChannel = (ChannelExec) session.openChannel("exec");
+			openChannel.setCommand(command);
+			int exitStatus = openChannel.getExitStatus();
+			System.out.println(exitStatus);
+			openChannel.connect();  
+            InputStream in = openChannel.getInputStream();  
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));  
+            String buf = null;
+            while ((buf = reader.readLine()) != null) {
+            	result+= new String(buf.getBytes("gbk"),"UTF-8")+"    <br>\r\n";  
+            }  
+		} catch (JSchException | IOException e) {
+			result+=e.getMessage();
+		}finally{
+			if(openChannel!=null&&!openChannel.isClosed()){
+				openChannel.disconnect();
+			}
+			if(session!=null&&session.isConnected()){
+				session.disconnect();
+			}
+		}
+		return result;
+	}
+	    
+	    
 
 }

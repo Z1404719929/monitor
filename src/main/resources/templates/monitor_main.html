@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
     <script src="resources/scripts/jquery-3.2.1.min.js"></script>
+    <script src="./js/echarts.min.js"></script>
   </head>
 
   <body class="layui-bg-gray">
@@ -12,24 +13,24 @@
     <!--您的Layui代码start-->
 <div>
 <ul class="layui-nav" lay-filter="">
-  <li class="layui-nav-item layui-this"><a href="redirect?page=monitor_main">namenode1</a>
-    	<dl class="layui-nav-child"> <!-- 二级菜单 -->
+  <li class="layui-nav-item layui-this namenode1"><a>namenode1</a>
+    	<dl class="layui-nav-child service" value="130"> <!-- 二级菜单 -->
       <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl>
   </li>
-  <li class="layui-nav-item"><a href="redirect?page=monitor_main">namenode2</a>
-  	<dl class="layui-nav-child"> <!-- 二级菜单 -->
+  <li class="layui-nav-item namenode2"><a>namenode2</a>
+  	<dl class="layui-nav-child service" value="131"> <!-- 二级菜单 -->
       <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl>
    </li>
-  <li class="layui-nav-item"><a href="redirect?page=monitor_main">datanode1</a>
-  	<dl class="layui-nav-child"> <!-- 二级菜单 -->
+  <li class="layui-nav-item datanode1"><a>datanode1</a>
+  	<dl class="layui-nav-child service" value="50"> <!-- 二级菜单 -->
       <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl>  
   </li>
-  <li class="layui-nav-item"><a href="redirect?page=monitor_main">datanode2</a>
-    	<dl class="layui-nav-child"> <!-- 二级菜单 -->
+  <li class="layui-nav-item datanode2"><a>datanode2</a>
+    	<dl class="layui-nav-child service" value="51"> <!-- 二级菜单 -->
       <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl>
   </li>
-  <li class="layui-nav-item"><a href="redirect?page=monitor_main">datanode3</a>
-    	<dl class="layui-nav-child"> <!-- 二级菜单 -->
+  <li class="layui-nav-item datanode3"><a>datanode3</a>
+    	<dl class="layui-nav-child service" value="52"> <!-- 二级菜单 -->
       <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl>
   </li>
   <span class="layui-layout-right"><li class="layui-nav-item">
@@ -42,18 +43,19 @@
     </dl>
   </li></span>
 </ul>
-</div>
+</div> 
+<div class="all cb"  style="width:1000px;margin:auto;margin-top:5%;">
 
 <div style="width:1000px;margin:auto;margin-top:5%;">
-<button type="button" class="layui-btn layui-btn-lg layui-btn-normal">启动</button>
-<button type="button" class="layui-btn layui-btn-lg layui-btn-danger">关机</button>
-<button type="button" class="layui-btn layui-btn-lg layui-btn-warm">重启</button>
-<button type="button" class="layui-btn layui-btn-lg">图形化</button>
+<button type="button" class="layui-btn layui-btn-lg layui-btn-normal startnn">启动 namenode</button>
+<button type="button" class="layui-btn layui-btn-lg layui-btn-normal startzkfc">启动 zkfc</button>
+<button type="button" class="layui-btn layui-btn-lg layui-btn-danger stop">关机</button>
+<button type="button" class="layui-btn layui-btn-lg layui-btn-warm restart">重启</button>
+<!-- <button type="button" class="layui-btn layui-btn-lg Linuximage">图形化</button> -->
 </div>
-
-<div style="width:1000px;height:600px;margin:auto;margin-top:5%;">
+<div style="width:1500px;height:100px;margin:auto;margin-top:5%;">
 <table class="layui-table" >
-  <tbody>
+  <tbody class="localtable">
  <tr>
       <td  style="font-size: 30px;">运行状态</td>
       <td style="font-size: 30px;">关闭</td>
@@ -62,27 +64,21 @@
       <td style="font-size: 30px;">ip地址</td>
       <td style="font-size: 30px;">192.168.1.50</td>
     </tr>
-    <tr>
-      <td style="font-size: 30px;">cpu使用数</td>
-      <td style="font-size: 30px;">2016-11-28</td>
-    </tr>
-      <tr>
-      <td style="font-size: 30px;">内存使用量</td>
-      <td style="font-size: 30px;">2016-11-28</td>
-    </tr>
-    <tr>
-      <td style="font-size: 30px;">磁盘使用量</td>
-      <td style="font-size: 30px;">2016-11-28</td>
     </tr>
   </tbody>
 </table>
 </div>
- 
 
+<div id="main-image1" style="width:900px;height:600px;margin:5%;margin-top:5%;"></div>
+<div id="main-image2" style="width:900px;height:600px;margin:50%;margin-top:5%;"></div>
+
+ 
+</div>
 
 
 
  <script src="./js/monitor_main.js"></script>
+ <script src="./js/monitor_service.js"></script>
 <script>
 //注意：导航 依赖 element 模块，否则无法进行功能性操作	
 layui.use('element', function(){

@@ -60,6 +60,15 @@
 <!-- 这个需要为 true 热部署才有效 -->
 <optional>true</optional>
 </dependency>
+
+<!-- 用于连接linux的jar包 -->
+<dependency>
+        <groupId>com.jcraft</groupId>
+           <artifactId>jsch</artifactId>
+           <version>0.1.54</version>
+    </dependency>
+
+
 	</dependencies>
 
 	<build>

@@ -1,6 +1,4 @@
-var province1,county1,district1;
-
-
+var province1,county1,district1;	//省市区
 
 
 $(function(){

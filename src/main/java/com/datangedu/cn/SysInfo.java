@@ -364,6 +364,6 @@ public class SysInfo {
         String b = sys.getDefaultIpAddress();
         sys.getEthernetInfo();
         //getEthernetInfo
-        System.out.println(a);
+        System.out.println("cpu shuliang"+a);
     }
 }
