@@ -13,25 +13,27 @@
     <!--您的Layui代码start-->
 <div>
 <ul class="layui-nav" lay-filter="">
-  <li class="layui-nav-item layui-this namenode1"><a>namenode1</a>
-    	<dl class="layui-nav-child service" value="130"> <!-- 二级菜单 -->
-      <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl>
+  <li class="layui-nav-item layui-this 50" onclick="change(50,5000,this)"><a>namenode1</a>
+    	<!-- <dl class="layui-nav-child " value="50"> 二级菜单
+      <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl> -->
   </li>
-  <li class="layui-nav-item namenode2"><a>namenode2</a>
-  	<dl class="layui-nav-child service" value="131"> <!-- 二级菜单 -->
-      <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl>
+  <li class="layui-nav-item 51" onclick="change(51,5100,this)"><a>namenode2</a>
+  	<!-- <dl class="layui-nav-child "> 二级菜单
+      <dd><a>服务详情</a></dd></dl> -->
    </li>
-  <li class="layui-nav-item datanode1"><a>datanode1</a>
-  	<dl class="layui-nav-child service" value="50"> <!-- 二级菜单 -->
-      <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl>  
+  <li class="layui-nav-item datanode1" onclick="change(60,6000,this)"><a>datanode1</a>
+  	<!-- <dl class="layui-nav-child " value="60"> 二级菜单
+      <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl>   -->
   </li>
-  <li class="layui-nav-item datanode2"><a>datanode2</a>
-    	<dl class="layui-nav-child service" value="51"> <!-- 二级菜单 -->
-      <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl>
+  <li class="layui-nav-item datanode2" onclick="change(61,6100,this)"><a>datanode2</a>
+    	<!-- <dl class="layui-nav-child " value="61"> 二级菜单
+      <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl> -->
   </li>
-  <li class="layui-nav-item datanode3"><a>datanode3</a>
-    	<dl class="layui-nav-child service" value="52"> <!-- 二级菜单 -->
-      <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl>
+  <li class="layui-nav-item datanode3" onclick="change(62,6200,this)"><a>datanode3</a>
+    	<!-- <dl class="layui-nav-child " value="62"> 二级菜单
+      <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl> -->
+  </li>
+   <li class="layui-nav-item service"><a>服务详情</a>
   </li>
   <span class="layui-layout-right"><li class="layui-nav-item">
 	<a href="redirect?page=monitor_center" class="user"><img src="//t.cn/RCzsdCq" class="layui-nav-img">四十四</a>
@@ -44,7 +46,7 @@
   </li></span>
 </ul>
 </div> 
-<div class="all cb"  style="width:1000px;margin:auto;margin-top:5%;">
+<div class="all cb">
 
 <div style="width:1000px;margin:auto;margin-top:5%;">
 <button type="button" class="layui-btn layui-btn-lg layui-btn-normal startnn">启动 namenode</button>
@@ -78,7 +80,6 @@
 
 
  <script src="./js/monitor_main.js"></script>
- <script src="./js/monitor_service.js"></script>
 <script>
 //注意：导航 依赖 element 模块，否则无法进行功能性操作	
 layui.use('element', function(){

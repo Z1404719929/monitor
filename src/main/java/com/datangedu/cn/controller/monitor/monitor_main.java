@@ -37,7 +37,8 @@ public class monitor_main {
 	// linux连接
 	@ResponseBody
 	@RequestMapping(value = "/linklinux", method = RequestMethod.POST)
-	public static void exec(HttpServletRequest request) {
+	public static Map<String,Object> exec(HttpServletRequest request) {
+		Map<String,Object> map = new HashMap<String,Object>();
 		String host=request.getParameter("local");		//登录主机ip
 		System.out.println("hosy"+host);
 		String user="zhaochaoqun";						//登录用户名
@@ -46,7 +47,10 @@ public class monitor_main {
 		String command=request.getParameter("command");			//命令
 		System.out.println("command"+command);
 		ControllerPub pub=new ControllerPub();
-		String exec=pub.exec(host, command);
+		int exec=pub.exec(host, command);
+//		System.out.println("465464"+exec);
+		map.put("status", exec);
+		return map;
 		}
 	}
 

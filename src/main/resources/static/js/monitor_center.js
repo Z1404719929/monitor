@@ -162,7 +162,7 @@ function img(){
 	var username=sessionStorage.getItem("name");
 	$(".user").html("");
 	var txt="";
-	txt +=`<img src="/headImg?id=${userid}"  style="
+	txt +=`<img src="/headImg?id=${userid}" onerror="defaultImg(this)" style="
     width: 40px;
     height: 40px;
     border-radius: 50px;">${username}`
@@ -178,7 +178,7 @@ function img2(){
 	var username=sessionStorage.getItem("name");
 	$(".checkimg").html("");
 	var txt="";
-	txt +=`<img id="demo1" src="/headImg?id=${userid}"  style="
+	txt +=`<img id="demo1" src="/headImg?id=${userid}" onerror="defaultImg(this)" style="
     width: 200px;
     height: 200px;
     border-radius: 200px;">`
@@ -192,7 +192,7 @@ layui.use('form', function(){
 	var form = layui.form;
   //监听提交
   form.on('submit(formDemo)', function(data){
-    layer.msg(JSON.stringify(data.field));							//取到表单提交的信息
+//    layer.msg(JSON.stringify(data.field));							//取到表单提交的信息
     console.log(JSON.parse(JSON.stringify(data.field.username)));	//parse转换去掉双引号
     $.ajax({
 		type: "post",
@@ -209,7 +209,7 @@ layui.use('form', function(){
 		dataType: "json",
 		success: function(data){
 			console.log("成功后返回的数据11",data);
-			
+			alert("修改成功")
 		},
 		error: function(data){
 			console.log("失败后返回的数据",data);

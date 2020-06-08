@@ -12,28 +12,20 @@
     <!--您的Layui代码start-->
 <div>
 <ul class="layui-nav" lay-filter="">
-  <li class="layui-nav-item layui-this"><a href="redirect?page=monitor_main">namenode1</a>
-    	<dl class="layui-nav-child"> <!-- 二级菜单 -->
-      <dd><a href="">服务详情</a></dd></dl>
+  <li class="layui-nav-item layui-this namenode1" onclick="change(50,this)"><a>namenode1</a>
   </li>
-  <li class="layui-nav-item"><a href="redirect?page=monitor_main">namenode2</a>
-  	<dl class="layui-nav-child"> <!-- 二级菜单 -->
-      <dd><a href="">服务详情</a></dd></dl>
+  <li class="layui-nav-item namenode2" onclick="change(51,this)"><a>namenode2</a>
    </li>
-  <li class="layui-nav-item"><a href="redirect?page=monitor_main">datanode1</a>
-  	<dl class="layui-nav-child"> <!-- 二级菜单 -->
-      <dd><a href="">服务详情</a></dd></dl>  
+  <li class="layui-nav-item datanode1" onclick="change(60,this)"><a>datanode1</a>
   </li>
-  <li class="layui-nav-item"><a href="redirect?page=monitor_main">datanode2</a>
-    	<dl class="layui-nav-child"> <!-- 二级菜单 -->
-      <dd><a href="">服务详情</a></dd></dl>
+  <li class="layui-nav-item datanode2" onclick="change(61,this)"><a>datanode2</a>
   </li>
-  <li class="layui-nav-item"><a href="redirect?page=monitor_main">datanode3</a>
-    	<dl class="layui-nav-child"> <!-- 二级菜单 -->
-      <dd><a href="">服务详情</a></dd></dl>
+  <li class="layui-nav-item datanode3" onclick="change(62,this)"><a>datanode3</a>
+  </li>
+  <li class="layui-nav-item main"><a href="redirect?page=monitor_main">主界面</a>
   </li>
   <span class="layui-layout-right"><li class="layui-nav-item">
-    <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">四十四</a>
+    <a href="" class="user"><img src="//t.cn/RCzsdCq" class="layui-nav-img">四十四</a>
     <dl class="layui-nav-child">
       <dd><a href="redirect?page=monitor_center"><i class="layui-icon layui-icon-username" style="font-size: 20px; color: #1E9FFF;"></i>修改信息</a></dd>
 <dd><a href="javascript:;"><i class="layui-icon layui-icon-download-circle" style="font-size: 20px; color: #1E9FFF;"></i> 数据库备份</a></dd>
@@ -60,16 +52,11 @@
       <th>操作</th>
     </tr> 
   </thead>
-  <tbody>
-    <tr>
-      <td>贤心</td>
-      <td>2016-11-29</td>
-      <td><button type="button" class="layui-btn layui-btn-lg layui-btn-danger">关闭进程</button></td>
-    </tr>
-    <tr>
-      <td>许闲心</td>
-      <td>2016-11-28</td>
-      <td><button type="button" class="layui-btn layui-btn-lg layui-btn-danger">关闭进程</button></td>
+  <tbody class="jpstbody">
+  <tr>
+      <td>没有进程</td>
+      <td>没有进程</td>
+      <td><button type="button" class="layui-btn layui-btn-lg layui-btn-danger" onclick="kill(${jps1[i]})">关闭进程</button></td>
     </tr>
   </tbody>
 </table>

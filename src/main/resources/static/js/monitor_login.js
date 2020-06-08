@@ -31,6 +31,8 @@ $(".primary_button").on("click", function(){
 			console.log("成功后返回的数据",data);
 			//如果成功，将id，用户名，状态存入sessionStorage，跳转页面，失败弹窗
 			if(data.code==1){
+//			sessionStorage.setItem("ip",130),
+//			sessionStorage.setItem("post",1300),
 			sessionStorage.setItem("id",data.userid),
 			sessionStorage.setItem("name",data.username),
 			sessionStorage.setItem("status",data.code),

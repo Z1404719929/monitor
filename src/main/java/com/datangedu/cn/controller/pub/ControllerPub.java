@@ -113,13 +113,14 @@ public class ControllerPub {
 //	    }
 	    
 	//对linux进行操作
-	public String exec(String host,String command){
+	public int exec(String host,String command){
 		String user="zhaochaoqun";						//登录用户名
 		String psw="123456";							//登录密码
 		int port=22;									//端口号
 		String result="";
 		Session session =null;
 		ChannelExec openChannel =null;
+		int exitStatus=0;
 		try {
 			JSch jsch=new JSch();
 			session = jsch.getSession(user, host, port);
@@ -130,7 +131,7 @@ public class ControllerPub {
 			session.connect();
 			openChannel = (ChannelExec) session.openChannel("exec");
 			openChannel.setCommand(command);
-			int exitStatus = openChannel.getExitStatus();
+			exitStatus = openChannel.getExitStatus();
 			System.out.println(exitStatus);
 			openChannel.connect();  
             InputStream in = openChannel.getInputStream();  
@@ -149,7 +150,7 @@ public class ControllerPub {
 				session.disconnect();
 			}
 		}
-		return result;
+		return exitStatus;
 	}
 	    
 	    

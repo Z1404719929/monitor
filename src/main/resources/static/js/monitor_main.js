@@ -2,10 +2,10 @@ var memory=new Array(60)	//存60秒内存使用量
 var disk1;					//存磁盘使用量
 var disk2;					//存磁盘未使用量
 var xAxis = new Array(60);	//横坐标
-var local1="192.168.1.";				//主机ip
-var local="192.168.1.130"
-var nn1="130";var nn2="131";var dn1="50";var dn2="51";var dn3="52";$(".cb").val(nn1);var post="1300";
+var local="192.168.1."+sessionStorage.getItem("ip");
 var status="关闭";
+var nn1="50";var nn2="51";var dn1="60";var dn2="61";var dn3="62";
+var post=sessionStorage.getItem("post");
 
 var num=60;
 memory.fill(0);	//开始时是0
@@ -14,21 +14,22 @@ for(var i=0;i<xAxis.length;i++){
   num--;
 }
 
-
 $(function(){
+	sessionStorage.setItem("ip",50);
+	sessionStorage.setItem("post",5000);
 	img();
 	linklinux();
 	defaultimage();
+	changetable();
 })
-
-
 
 
 //连接主机的回调函数，每隔一秒访问一次
 setInterval(function(){
 			var i=0;
+			local="192.168.1."+sessionStorage.getItem("ip");
+			post=sessionStorage.getItem("post");
 			var ws = new WebSocket('ws://'+local+':'+post+"/");
-			console.log("111",ws)
 			var linux=new Array()	//存linux拿到的信息
 
 			//获取linux信息
@@ -36,9 +37,9 @@ setInterval(function(){
 			  linux[i]=event.data;
 			  i=i+1;
 //			  console.log("5555",linux.length)
-			  if(linux.length==22){
+			  if(linux.length==22&&status=="开启"){
 				  changetable();
-			  var arr1=linux[9].split("=");	//内存使用量
+				var arr1=linux[9].split("=");	//内存使用量
 				var arr2=linux[8].split("=");	//内存总量
 				
 				memory.shift();		//移除首选项
@@ -59,16 +60,17 @@ setInterval(function(){
 				//调用echarts图片
 				echartsimg(arr2[1],arr4[1]);
 			}
+//			if(status=="关闭"){
+//				defaultimage()
+//			}
 			}
 		},1000)
-	
 		
-
-
-
-
+//连接linux
 function linklinux(){
-	var command="bash ~/sh/webskstart.sh";
+	local="192.168.1."+sessionStorage.getItem("ip");
+
+	var command="bash ~/sh/webskstart.sh";	//打开获取主机信息的脚本
 	$.ajax({
 		//请求类型
 		type:"post",
@@ -84,33 +86,28 @@ function linklinux(){
 		//请求成功后调用函数
 		success:function(data){
 			console.log("成功后返回的数据",data);
+			if(data.status=='-1'){
+				status="开启";
+				changetable();
+			}
 	 	},
 		error:function(data){
 			console.log("失败后返回的数据",data);
+			status="关闭";
+			changetable();
 		}
 	})
 }
 
 
 
-
-//显示头像
-function img(){
-	var userid=sessionStorage.getItem("id");
-	var username=sessionStorage.getItem("name");
-	$(".user").html("");
-	var txt="";
-	txt +=`<img src="/headImg?id=${userid}"  style="
-    width: 50px;
-    height: 50px;
-    border-radius: 40px;">${username}`
-	$(".user").append(txt);
-}
-
+		
 //默认没有连接时显示的图片
 function defaultimage(){		
 	//显示内存折线图
 	memory.fill(0);
+	disk1=0;
+	disk2=0;
 	echartsimg(100,100);
 }
 
@@ -204,10 +201,23 @@ function echartsimg(arr2,arr4){
 }
 
 
+//切换主机
+function change(id,post,obj){
+	sessionStorage.setItem("ip",id);
+	sessionStorage.setItem("post",post);
+	defaultimage();
+	status="关闭"	//默认关闭，连接成功时切换开启
+	linklinux();
+//	linklinux();
+	changetable();
+	$('.layui-this').removeClass('layui-this');	//样式改变
+	$(obj).addClass("layui-this");
+}
 
 
+
+////////////////////////
 $(".startnn").on("click", function(){
-	local=local1+$(".cb").val()
 	var command="bash ~/sh/startnn.sh";
 	$.ajax({
 		//请求类型
@@ -224,6 +234,12 @@ $(".startnn").on("click", function(){
 		//请求成功后调用函数
 		success:function(data){
 			console.log("成功后返回的数据",data);
+			console.log(data);
+			if(data.status=='-1'){
+				status="开启";
+			}else{
+				status="关闭";
+			}
 	 	},
 		error:function(data){
 			console.log("失败后返回的数据",data);
@@ -232,7 +248,6 @@ $(".startnn").on("click", function(){
 })
 
 $(".startzkfc").on("click", function(){
-	local=local1+$(".cb").val()
 	var command="bash ~/sh/startzkfc.sh";
 	$.ajax({
 		//请求类型
@@ -259,110 +274,8 @@ $(".startzkfc").on("click", function(){
 $(".stop").on("click", function(){
 	teststatus()
 })
+//////////////////////////
 
-
-
-////////////切换主机
-$(".namenode1").on("click", function(){
-	local=local1+nn1;
-	post="1300";
-	linklinux();
-//	status="关闭"	//默认关闭，连接成功时切换开启
-//	changetable();
-	defaultimage();
-	$('.layui-this').removeClass('layui-this');	//样式改变
-	$(this).addClass("layui-this");
-	$(".cb").val(nn1)	//值存入cb中
-})
-$(".namenode2").on("click", function(){
-	local=local1+nn2;
-	post="1310";
-	linklinux();
-//	status="关闭"	//默认关闭，连接成功时切换开启
-//	changetable();
-	defaultimage();
-	$('.layui-this').removeClass('layui-this');	//样式改变
-	$(this).addClass("layui-this");
-	$(".cb").val(nn2)	//值存入cb中
-})
-$(".datanode1").on("click", function(){
-	local=local1+dn1;
-	post="5000";
-	linklinux();
-//	status="关闭"	//默认关闭，连接成功时切换开启
-//	changetable();
-	defaultimage();
-	$('.layui-this').removeClass('layui-this');	//样式改变
-	$(this).addClass("layui-this");
-	$(".cb").val(dn1)	//值存入cb中
-})
-$(".datanode2").on("click", function(){
-	local=local1+dn2;
-	post="5100";
-	linklinux();
-//	status="关闭"	//默认关闭，连接成功时切换开启
-//	changetable();
-	defaultimage();
-	$('.layui-this').removeClass('layui-this');	//样式改变
-	$(this).addClass("layui-this");
-	$(".cb").val(dn2)	//值存入cb中
-})
-$(".datanode3").on("click", function(){
-	local=local1+dn3;
-	post="5200";
-	linklinux();
-//	status="关闭"	//默认关闭，连接成功时切换开启
-//	changetable();
-	changetable();
-	defaultimage();
-	$('.layui-this').removeClass('layui-this');	//样式改变
-	$(this).addClass("layui-this");
-	$(".cb").val(dn3)	//值存入cb中
-})
-
-
-function teststatus(){
-	post="8081";
-	local=local1+$(".cb").val()
-	var command="bash ~/sh/webskjps.sh";
-	$.ajax({
-		//请求类型
-		type:"post",
-		//请求路径
-		url:"monitor_main/linklinux",
-		//请求参数
-		data:{
-			local:local,
-			command:command,
-		},
-		//返回数据类型
-		dataType:"json",
-		//请求成功后调用函数
-		success:function(data){
-			console.log("成功后返回的数据",data);
-	 	},
-		error:function(data){
-			console.log("失败后返回的数据",data);
-		}
-	})
-			var i=0;
-			var ws = new WebSocket('ws://'+local+':'+post+'/');
-			console.log("111",ws)
-			var linux=new Array()	//存linux拿到的信息
-
-			//获取linux信息
-			ws.onmessage = function(event) {
-			  linux[i]=event.data;
-			  i=i+1;
-			  var a=linux[i-1].split(" ");
-			  console.log(a[0]);
-			  console.log(a[1]);
-			  if(a[1]=="NameNode"||a[1]=="DameNode"){
-				  status="开启";
-				  changetable();
-			  }
-			}
-}
 
 //表格显示
 function changetable(){
@@ -378,4 +291,29 @@ function changetable(){
     </tr>
     </tr>`
 	$(".localtable").append(txt);
+}
+
+
+$(".service").on("click", function(){
+	sessionStorage.setItem("ip",50);
+	sessionStorage.setItem("post",8081);
+	location.href="redirect?page=monitor_service"
+})
+
+
+//显示头像
+function img(){
+	var userid=sessionStorage.getItem("id");
+	var username=sessionStorage.getItem("name");
+	$(".user").html("");
+	var txt="";
+	txt +=`<img src="/headImg?id=${userid}" onerror="defaultImg(this)" style="
+    width: 50px;
+    height: 50px;
+    border-radius: 40px;">${username}`
+	$(".user").append(txt);
+}
+function defaultImg(img){
+	var id=sessionStorage.getItem("id")
+	img.src="images/user-lg.png";
 }
