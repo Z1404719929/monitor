@@ -186,13 +186,21 @@ public class monitor_center {
 	
 	
 	//改变用户信息changeUserinfo
-	@ResponseBody		//得到市
+	@ResponseBody		
 	@RequestMapping(value="/changeUserinfo",method = RequestMethod.POST)
 	public Map<String,Object> changeUserinfo(HttpServletRequest request) throws ParseException, IOException {
 		Map<String,Object> map = new HashMap<String,Object>();
 
 		MonitorUser monitoruser = new MonitorUser();	
         monitoruser.setUserName(request.getParameter("username"));					//用户名
+        //查找手机号是否存在且不等于当前手机号
+  		List<MonitorUser> userInfo = monitorservice.Selectbycellphone(request.getParameter("cellphone"));
+  		MonitorUser userInfo2 = monitorservice.Select(request.getParameter("userid"));
+  		if(!userInfo.isEmpty()&&!userInfo.get(0).getCellphone().equals(userInfo2.getCellphone())) {
+  			map.put("msg","手机号绑定其他账号" );
+  			System.out.println("手机号绑定其他账号");
+  			return map;
+  		}
         monitoruser.setCellphone(request.getParameter("cellphone"));				//手机号
         monitoruser.setRegionId(request.getParameter("district"));					//区号
         //日期String转换成Date
@@ -225,18 +233,7 @@ public class monitor_center {
         
         monitorservice.changeUserinfo(monitoruser,request.getParameter("userid"));
         System.out.println("用户信息上传成功");
-        
-        
-
-        
-
-        
-        
-		
-//		System.out.println("选择的省id=="+request.getParameter("id"));
-//		List<Region> shi = rService.getshi(request.getParameter("id"));
-//		map.put("shi", shi);
-//		System.out.println("市id=="+shi.get(0).getId());
+        map.put("msg","修改成功" );
 		return map;
 	}
 

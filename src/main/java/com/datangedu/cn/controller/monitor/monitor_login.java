@@ -27,6 +27,7 @@ public class monitor_login {
 	@ResponseBody
 	@RequestMapping(value = "/login",method = RequestMethod.POST)	//登录路径拦截
 	public Map <String,Object> Login(HttpServletRequest request) {
+		System.out.println("11111");
 		Map<String,Object> map = new HashMap<String,Object>();
 		String cellphone=request.getParameter("cellphone");
 		String password=request.getParameter("password");
@@ -53,7 +54,7 @@ public class monitor_login {
 			map.put("msg","验证码错误" );
 			return map;
 		}
-		
+		System.out.println("22222");
 		List<MonitorUser> userInfo = monitorservice.Selectbycellphone(cellphone);
 		if(userInfo.isEmpty()) {
 			map.put("msg","账号不存在" );
@@ -68,7 +69,7 @@ public class monitor_login {
 		map.put("username",userInfo.get(0).getUserName());
 		map.put("msg","登陆成功");
 		map.put("code", 1);
-		
+		System.out.println("33333");
 		return map;
 }
 

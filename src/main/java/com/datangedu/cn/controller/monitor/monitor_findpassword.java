@@ -64,7 +64,7 @@ public class monitor_findpassword {
 			return map;
 		}
 		if(!userInfo.get(0).getUserName().equals(name)) {
-			map.put("msg","用户名不匹配" );
+			map.put("msg","用户名与手机号不匹配" );
 			return map;
 		}
 		if(!password.equals(password1)) {

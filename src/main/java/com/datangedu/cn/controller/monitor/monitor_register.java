@@ -33,26 +33,26 @@ public class monitor_register {
 		String password=request.getParameter("password");
 		String password1=request.getParameter("password1");
 		String code=request.getParameter("code");
-		if(name.isEmpty()) {
-			map.put("msg","输入用户名" );
-			return map;
-		}
-		if(cellphone.isEmpty()) {
-			map.put("msg","输入手机号" );
-			return map;
-		}
-		if(password.isEmpty()) {
-			map.put("msg","输入密码" );
-			return map;
-		}
-		if(password1.isEmpty()) {
-			map.put("msg","确认密码" );
-			return map;
-		}
-		if(code.isEmpty()) {
-			map.put("msg","输入验证码" );
-			return map;
-		}
+//		if(name.isEmpty()) {
+//			map.put("msg","输入用户名" );
+//			return map;
+//		}
+//		if(cellphone.isEmpty()) {
+//			map.put("msg","输入手机号" );
+//			return map;
+//		}
+//		if(password.isEmpty()) {
+//			map.put("msg","输入密码" );
+//			return map;
+//		}
+//		if(password1.isEmpty()) {
+//			map.put("msg","确认密码" );
+//			return map;
+//		}
+//		if(code.isEmpty()) {
+//			map.put("msg","输入验证码" );
+//			return map;
+//		}
 		if(!(cellphone.length()==11)) {
 			map.put("msg","手机号必须为11位");
 			return map;

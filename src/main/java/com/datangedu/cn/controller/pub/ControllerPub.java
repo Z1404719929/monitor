@@ -128,6 +128,7 @@ public class ControllerPub {
 			config.put("StrictHostKeyChecking", "no");
 			session.setConfig(config);
 			session.setPassword(psw);
+			session.setTimeout(7000);
 			session.connect();
 			openChannel = (ChannelExec) session.openChannel("exec");
 			openChannel.setCommand(command);
@@ -152,7 +153,46 @@ public class ControllerPub {
 		}
 		return exitStatus;
 	}
-	    
-	    
+	//使用root用户
+	public int exec1(String host,String command){
+		String user="root";						//登录用户名
+		String psw="123456";							//登录密码
+		int port=22;									//端口号
+		String result="";
+		Session session =null;
+		ChannelExec openChannel =null;
+		int exitStatus=0;
+		try {
+			JSch jsch=new JSch();
+			session = jsch.getSession(user, host, port);
+			java.util.Properties config = new java.util.Properties();
+			config.put("StrictHostKeyChecking", "no");
+			session.setConfig(config);
+			session.setPassword(psw);
+			session.setTimeout(5000);
+			session.connect();
+			openChannel = (ChannelExec) session.openChannel("exec");
+			openChannel.setCommand(command);
+			exitStatus = openChannel.getExitStatus();
+			System.out.println(exitStatus);
+			openChannel.connect();  
+            InputStream in = openChannel.getInputStream();  
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));  
+            String buf = null;
+            while ((buf = reader.readLine()) != null) {
+            	result+= new String(buf.getBytes("gbk"),"UTF-8")+"    <br>\r\n";  
+            }  
+		} catch (JSchException | IOException e) {
+			result+=e.getMessage();
+		}finally{
+			if(openChannel!=null&&!openChannel.isClosed()){
+				openChannel.disconnect();
+			}
+			if(session!=null&&session.isConnected()){
+				session.disconnect();
+			}
+		}
+		return exitStatus;
+	}
 
 }

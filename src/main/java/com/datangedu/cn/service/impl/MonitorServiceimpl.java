@@ -32,6 +32,7 @@ public class MonitorServiceimpl implements MonitorService{
 		mu.setUserName(request.getParameter("name"));	//用户名
 		mu.setCellphone(request.getParameter("cellphone"));		//手机号
 		mu.setPassword(MD5Util.getMD5(request.getParameter("password").getBytes()));	//密码
+		mu.setRegionId(request.getParameter("district")); 			//区id
 		mu.setRegisterTime(ctime);		//注册时间
 		mu.setBorn(ctime);			//出生日期默认当前
 		mu.setGender(1);			//性别默认1男
