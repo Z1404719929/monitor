@@ -1,5 +1,5 @@
 //载入时生成图片验证码
-$(function() {
+$(function () {
 	var img = document.getElementsByClassName("checkimg")[0];
 	img.src = "/apiz/imgGetCode";
 })
@@ -11,25 +11,25 @@ function imgChange() {
 }
 
 // Demo
-layui.use('form', function() {
+layui.use('form', function () {
 	var form = layui.form;
 	// 监听提交
-	form.on('submit(formDemo)', function(data) {
+	form.on('submit(formDemo)', function (data) {
 		console.log(465879);
 		// console.log("手机号==",cellphone,password,code);
 		$.ajax({
-			type : "post",
-			url : "/apiz/monitor_upwd/upwd",
+			type: "post",
+			url: "/apiz/monitor_upwd/upwd",
 			// 数据传入后端
-			data : {
-				name :JSON.parse(JSON.stringify(data.field.name)),
-				cellphone:JSON.parse(JSON.stringify(data.field.cellphone)),
-				password:JSON.parse(JSON.stringify(data.field.password)),
-				password1 : JSON.parse(JSON.stringify(data.field.password1)),
-				code:JSON.parse(JSON.stringify(data.field.code)),
+			data: {
+				name: JSON.parse(JSON.stringify(data.field.name)),
+				cellphone: JSON.parse(JSON.stringify(data.field.cellphone)),
+				password: JSON.parse(JSON.stringify(data.field.password)),
+				password1: JSON.parse(JSON.stringify(data.field.password1)),
+				code: JSON.parse(JSON.stringify(data.field.code)),
 			},
-			dataType : "json",
-			success : function(data) {
+			dataType: "json",
+			success: function (data) {
 				console.log("成功后返回的数据", data);
 				// 如果成功，弹出设置成功，跳转到登录页，失败弹窗
 				console.log(data)
@@ -39,14 +39,14 @@ layui.use('form', function() {
 				} else {
 					alert(data.msg);
 					imgChange();
-					
+
 				}
 			},
-			error : function(data) {
+			error: function (data) {
 				console.log("失败后返回的数据", data);
 			}
 		})
-		 return false;
+		return false;
 	});
 });
 

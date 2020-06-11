@@ -33,5 +33,4 @@ public class MonitorApplication {
 		SpringApplication.run(MonitorApplication.class, args);
 		
 	}
-	
 }
