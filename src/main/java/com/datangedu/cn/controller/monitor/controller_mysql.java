@@ -90,7 +90,7 @@ public class controller_mysql {
                             + databaseName);
             OutputStream outputStream = process.getOutputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(
-                    new FileInputStream("D:\\\\workspace2\\\\Monitor\\\\mysql\\\\stp.sql"), "utf-8"));
+                    new FileInputStream("D:\\workspace2\\Monitor\\mysql\\stp.sql"), "utf-8"));
 //            System.out.println("4564646=="+br);
             String str = null;
             StringBuffer sb = new StringBuffer();

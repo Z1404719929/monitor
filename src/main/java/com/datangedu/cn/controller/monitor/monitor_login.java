@@ -32,18 +32,18 @@ public class monitor_login {
 		String cellphone=request.getParameter("cellphone");
 		String password=request.getParameter("password");
 		String code=request.getParameter("code");
-		if(cellphone.isEmpty()) {
-			map.put("msg","输入手机号" );
-			return map;
-		}
-		if(password.isEmpty()) {
-			map.put("msg","输入密码" );
-			return map;
-		}
-		if(code.isEmpty()) {
-			map.put("msg","输入验证码" );
-			return map;
-		}
+//		if(cellphone.isEmpty()) {
+//			map.put("msg","输入手机号" );
+//			return map;
+//		}
+//		if(password.isEmpty()) {
+//			map.put("msg","输入密码" );
+//			return map;
+//		}
+//		if(code.isEmpty()) {
+//			map.put("msg","输入验证码" );
+//			return map;
+//		}
 		if(!(cellphone.length()==11)) {
 			map.put("msg","手机号必须为11位");
 			return map;

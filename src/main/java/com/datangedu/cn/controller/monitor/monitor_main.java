@@ -72,21 +72,4 @@ public class monitor_main {
 			return map;
 			}
 
-//	@ResponseBody
-//	@RequestMapping(value = "/stop", method = RequestMethod.POST)
-//public static Map<String,Object> stop() throws IOException {
-//		Runtime runtime=Runtime.getRuntime();
-//		Process process=runtime.exec("bash ~/sh/stop.sh");
-////   Process process=runtime.exec("halt -p");
-//		BufferedReader reader=new BufferedReader(new InputStreamReader(process.getInputStream()));
-////   BufferedReader reader=new BufferedReader(new InputStreamReader(process.getInputStream()));
-//		String line;
-////   String line;
-//		while((line=reader.readLine())!=null) {
-//			System.out.println(line);
-//		}
-//		Map<String,Object> map = new HashMap<String,Object>();
-//		map.put("status", line);
-//		return map;
-//}
 }

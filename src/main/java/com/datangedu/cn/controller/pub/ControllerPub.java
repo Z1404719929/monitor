@@ -41,12 +41,12 @@ public class ControllerPub {
 	MonitorService monitorservice;
 	
 	//网页跳转注解
-	@RequestMapping("/redirect")
-	public String page(HttpServletRequest request) {
-		String url = request.getParameter("page");
-		System.out.println("跳转到" + url);
-		return url;
-	}
+//	@RequestMapping("/redirect")
+//	public String page(HttpServletRequest request) {
+//		String url = request.getParameter("page");
+//		System.out.println("跳转到" + url);
+//		return url;
+//	}
 
 	//验证码
 	@RequestMapping("/imgGetCode")
@@ -103,14 +103,6 @@ public class ControllerPub {
 	}
 	
 
-//	    private static File file=null;
-//
-//	    public static FileInputStream getImageByte(String infile) throws FileNotFoundException{
-//	        FileInputStream imageByte=null;
-//	        file=new File(infile);
-//	        imageByte=new FileInputStream(file);
-//	        return imageByte;
-//	    }
 	    
 	//对linux进行操作
 	public int exec(String host,String command){

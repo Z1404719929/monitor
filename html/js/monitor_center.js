@@ -41,7 +41,7 @@ function userinfo(){
 	 			//省
 	 			$.ajax({
 	 				type: "post",
-	 				url: "/apiz/monitor_center/sheng",
+	 				url: "/apiz/monitor_center/province",
 	 				dataType: "json",
 	 				success: function(data){
 	 					var province = data.sheng;
@@ -113,7 +113,7 @@ layui.use('upload', function(){
     //普通图片上传
     var uploadInst = upload.render({
         elem: '#test2'
-        ,url: '/apiz//monitor_center/upload/'
+        ,url: '/apiz/monitor_center/upload/'
         ,accept:'images'
         ,size:50000
         ,data:{
@@ -163,14 +163,14 @@ function img(){
 	$(".user").html("");
 	var txt="";
 	txt +=`<img src="/apiz/headImg?id=${userid}" onerror="defaultImg(this)" style="
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50px;">${username}`
 	$(".user").append(txt);
 }
 function defaultImg(img){
 	var id=sessionStorage.getItem("id")
-	img.src="/apiz/images/user-lg.png";
+	img.src="/images/default_user.png";
 }
 //头像2
 function img2(){
@@ -234,7 +234,7 @@ layui.use('form', function(){
 	form.on("select(province)", function(data){
 	$.ajax({
 		type: "post",
-		url: "/apiz/monitor_center/sheng",
+		url: "/apiz/monitor_center/province",
 		dataType: "json",
 		success: function(data){
 			var province = data.sheng;
@@ -270,7 +270,7 @@ layui.use('form', function(){
         var id =data.value;			//获取省id
         $.ajax({
     		type: "post",
-    		url: "/apiz/monitor_center/shi",
+    		url: "/apiz/monitor_center/county",
     		data:{
     			id:id,
     		},
@@ -307,7 +307,7 @@ layui.use('form', function(){
 		var id = data.value;
 		$.ajax({
 			type: "post",
-			url: "/apiz/monitor_center/qu",
+			url: "/apiz/monitor_center/district",
 			data:{
 				id:id,
 			},
@@ -337,6 +337,7 @@ function login(){
 	var status=sessionStorage.getItem("status");
 	if(status!=1){
 		alert("请先登录");
+		sessionStorage.clear();
 		 location.href="monitor_login.html"
 	}
 }

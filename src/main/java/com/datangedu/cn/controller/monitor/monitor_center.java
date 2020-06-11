@@ -70,7 +70,7 @@ public class monitor_center {
 	
 	
 	@ResponseBody		//得到省
-	@RequestMapping(value="/sheng",method = RequestMethod.POST)
+	@RequestMapping(value="/province",method = RequestMethod.POST)
 	public Map<String,Object> getsheng(HttpServletRequest request) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		List<Region> sheng = rService.getLevel((short) 1);
@@ -80,7 +80,7 @@ public class monitor_center {
 	}
 	
 	@ResponseBody		//得到市
-	@RequestMapping(value="/shi",method = RequestMethod.POST)
+	@RequestMapping(value="/county",method = RequestMethod.POST)
 	public Map<String,Object> getshi(HttpServletRequest request) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		System.out.println("选择的省id=="+request.getParameter("id"));
@@ -92,7 +92,7 @@ public class monitor_center {
 	
 	
 	@ResponseBody		//得到区
-	@RequestMapping(value="/qu",method = RequestMethod.POST)
+	@RequestMapping(value="/district",method = RequestMethod.POST)
 	public Map<String,Object> getqu(HttpServletRequest request) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		System.out.println("选择的市id=="+request.getParameter("id"));
@@ -124,31 +124,6 @@ public class monitor_center {
                 String filepath = "D:\\workspace2\\Monitor\\src\\main\\resources\\static\\images\\" + dateStr+"\\"+uuid+"." + prefix;
                 System.out.println(request.getParameter("id"));
                 
-                //图片上传数据库
-//                File toFile = null;
-//                InputStream ins = null;
-//                ins = file.getInputStream();
-//                toFile = new File(file.getOriginalFilename());
-//                System.out.println("1.1");
-//                OutputStream os = new FileOutputStream(toFile);
-//                int bytesRead = 0;
-//                byte[] buffer = new byte[1024];
-//                int len=0;
-//                ByteArrayOutputStream bos=new ByteArrayOutputStream();
-//    			while((len=ins.read(buffer))!=-1){
-//    				bos.write(buffer,0,len);
-//    			 }
-//    			 bos.flush();
-//    			byte data[] = bos.toByteArray();
-//                System.out.println("2");
-//                os.close();
-//                ins.close();
-//                MonitorUser monitoruser = new MonitorUser();
-//                monitoruser.setHeadImg(data);
-//                monitorservice.saveUserImg(monitoruser,request.getParameter("id"));
-//                System.out.println("3");
-                
-
                 File files=new File(filepath);
                 //打印查看上传路径
                 System.out.println(filepath);

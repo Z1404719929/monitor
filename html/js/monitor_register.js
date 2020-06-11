@@ -14,7 +14,7 @@ $(function() {
 //省
 	$.ajax({
 		type: "post",
-		url: "/apiz/monitor_center/sheng",
+		url: "/apiz/monitor_center/province",
 		dataType: "json",
 		success: function(data){
 			console.log(data.sheng[1].id)
@@ -129,7 +129,7 @@ layui.use('form', function(){
 	form.on("select(province)", function(data){
 	$.ajax({
 		type: "post",
-		url: "/apiz/monitor_center/sheng",
+		url: "/apiz/monitor_center/province",
 		dataType: "json",
 		success: function(data){
 			var province = data.sheng;
@@ -165,7 +165,7 @@ layui.use('form', function(){
         var id =data.value;			//获取省id
         $.ajax({
     		type: "post",
-    		url: "/apiz/monitor_center/shi",
+    		url: "/apiz/monitor_center/county",
     		data:{
     			id:id,
     		},
@@ -202,7 +202,7 @@ layui.use('form', function(){
 		var id = data.value;
 		$.ajax({
 			type: "post",
-			url: "/apiz/monitor_center/qu",
+			url: "/apiz/monitor_center/district",
 			data:{
 				id:id,
 			},

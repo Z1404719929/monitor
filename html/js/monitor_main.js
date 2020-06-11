@@ -1,4 +1,5 @@
 var memory=new Array(60)	//存60秒内存使用量
+var disk0;					//存磁盘总量
 var disk1;					//存磁盘使用量
 var disk2;					//存磁盘未使用量
 var xAxis = new Array(60);	//横坐标
@@ -52,15 +53,15 @@ setInterval(function(){
 				var arr5=linux[18].split("=");	//分区使用量
 				var arr6=linux[16].split("=");	//分区未使用
 				
-				arr4[1]=Math.ceil(arr4[1]/1024/1024);	//G做单位
-				arr5[1]=Math.ceil(arr5[1]/1024/1024);
-				arr6[1]=Math.ceil(arr6[1]/1024/1024);
-
+				arr4[1]=Math.round(arr4[1]/1024/1024);	//G做单位
+				arr5[1]=Math.round(arr5[1]/1024/1024);
+				arr6[1]=Math.round(arr6[1]/1024/1024);
+				disk0=arr4[1];
 				disk1=arr5[1];
 				disk2=arr6[1];
 					
 				//调用echarts图片
-				echartsimg(arr2[1],arr4[1]);
+				echartsimg(arr2[1]);
 			}
 //			if(status=="关闭"){
 //				defaultimage()
@@ -108,12 +109,13 @@ function linklinux(){
 function defaultimage(){		
 	//显示内存折线图
 	memory.fill(0);
+	disk0=0;
 	disk1=0;
 	disk2=0;
-	echartsimg(100,100);
+	echartsimg(100);
 }
 
-function echartsimg(arr2,arr4){
+function echartsimg(arr2){
 	var main_image1=echarts.init(document.querySelector('#main-image1'));
 	option = {
 			title:{
@@ -169,7 +171,7 @@ function echartsimg(arr2,arr4){
 	option = {
 		    title: {
 		        text: '磁盘使用情况',
-		        subtext:'总量'+(disk1+disk2)+"GB",
+		        subtext:'总量'+disk0+"GB",
 		        left: 'center'
 		    },
 		    tooltip: {
@@ -319,18 +321,19 @@ function img(){
 	txt +=`<img src="/apiz/headImg?id=${userid}" onerror="defaultImg(this)" style="
     width: 50px;
     height: 50px;
-    border-radius: 40px;">${username}`
+    border-radius: 50px;">${username}`
 	$(".user").append(txt);
 }
 function defaultImg(img){
 	var id=sessionStorage.getItem("id")
-	img.src="/apiz/images/user-lg.png";
+	img.src="/images/default_user.png";
 }
 //登录判断
 function login(){
 	var status=sessionStorage.getItem("status");
 	if(status!=1){
 		alert("请先登录");
-		 location.href="monitor_login.html"
+		sessionStorage.clear();
+		 location.href="monitor_login.html";
 	}
 }

@@ -142,19 +142,21 @@ function img(){
 	$(".user").html("");
 	var txt="";
 	txt +=`<img src="/apiz/headImg?id=${userid}" onerror="defaultImg(this)" style="
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50px;">${username}`
 	$(".user").append(txt);
 }
 function defaultImg(img){
-		img.src="/apiz/images/user-lg.png";
+		var id=sessionStorage.getItem("id")
+		img.src="/images/default_user.png";
 }
 //登录判断
 function login(){
 	var status=sessionStorage.getItem("status");
 	if(status!=1){
 		alert("请先登录");
-		 location.href="monitor_login.html"
+		sessionStorage.clear();
+		 location.href="monitor_login.html";
 	}
 }
