@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
+
+</head>
+
+<body class="layui-bg-gray">
+
+  <!--您的Layui代码start-->
+  <div>
+    <ul class="layui-nav" lay-filter="">
+      <li class="layui-nav-item layui-this"><a>namenode1</a>
+      </li>
+      <li class="layui-nav-item"><a>namenode2</a>
+      </li>
+      <li class="layui-nav-item"><a>datanode1</a>
+      </li>
+      <li class="layui-nav-item"><a>datanode2</a>
+      </li>
+      <li class="layui-nav-item"><a>datanode3</a>
+      </li>
+      <li class="layui-nav-item main"><a href="admin_register.html">主界面</a>
+      </li>
+        <li class="layui-nav-item layui-layout-right">
+          <a href="admin_center.html" class="user"><img src="//t.cn/RCzsdCq" class="layui-nav-img">四十四</a>
+          <dl class="layui-nav-child" style="margin-left:-5%;">
+            <dd><a href="admin_center.html"><i class="layui-icon layui-icon-username"
+                  style="font-size: 20px; color: #1E9FFF;"></i>修改信息</a></dd>
+            <dd class="backups"><a><i class="layui-icon layui-icon-download-circle"
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库备份</a></dd>
+            <dd class="reduction"><a><i class="layui-icon layui-icon-upload-drag"
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库还原</a></dd>
+            <dd class="exit"><a><i class="layui-icon layui-icon-logout" style="font-size: 20px; color: #FF5722;"></i>
+                退出</a></dd>
+          </dl>
+        </li>
+    </ul>
+  </div>
+
+
+
+  <div style="width:800px;height:600px;margin:auto;margin-top:5%;">
+    <table class="layui-table">
+      <colgroup>
+        <col width="150">
+        <col width="200">
+        <col>
+      </colgroup>
+      <thead>
+        <tr>
+          <th>进程名</th>
+          <th>端口号</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody class="jpstbody">
+        <tr>
+          <td>没有连接到主机</td>
+          <td>没有连接到主机</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+  <script src="https://www.layuicdn.com/layui/layui.js"></script>
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="./js/admin_register.js"></script>
+  <script src="./js/mysql.js"></script>
+
+</body>
+
+</html>

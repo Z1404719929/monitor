@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
+<link rel="stylesheet" type="text/css" href="./css/custom.css" />
+</head>
+
+<div class="layui-row">
+  <div class="layui-col-md4">
+    <div class="grid-demo grid-demo-bg1">&nbsp</div>
+  </div>
+
+  <div class="layui-col-md4">
+    <div class="grid-demo" style=";margin:5%;margin-top:30%;">
+      <h1 style="font-family:verdana;margin-left:170px">普通用户重置密码</h1>
+
+      <form class="layui-form" action="" style="width:700px;height:300px;margin:5%;margin-top:5%">
+
+        <div class="layui-form-item" style="width:400px;">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-username"></i>
+            <input type="text" name="name" required lay-verify="required" placeholder="请输入用户名" autocomplete="off"
+              class="layui-input name">
+          </div>
+        </div>
+
+<div id="label1" class="layui-form-item" style="margin-left:150px;width:200px;display: none;">
+</div>
+
+        <div class="layui-form-item" style="width:400px;">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-cellphone"></i>
+            <input type="text" name="cellphone" required lay-verify="required" maxlength="11" placeholder="请输入手机号" autocomplete="off"
+              class="layui-input cellphone">
+          </div>
+        </div>
+
+<div id="label2" class="layui-form-item" style="margin-left:150px;width:200px;display: none;">
+</div>
+
+        <div class="layui-form-item" style="width:400px;">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-password"></i>
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+              class="layui-input password">
+          </div>
+        </div>
+
+        <div class="layui-form-item" style="width:400px;">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-password"></i>
+            <input type="password" name="password1" required lay-verify="required" placeholder="请确认密码"
+              autocomplete="off" class="layui-input password1">
+          </div>
+        </div>
+
+<div id="label3" class="layui-form-item" style="margin-left:150px;width:200px;display: none;">
+</div>
+
+        <div class="layui-form-item layui-input-inline" style="width:270px;">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-vercode"></i>
+            <input type="text" name="code" required lay-verify="required" placeholder="请输入验证码" autocomplete="off"
+              class="layui-input code">
+          </div>
+        </div>
+
+        <div class="layui-form-item layui-input-inline" style="width:300px;">
+          <img onclick="imgChange()" class="checkimg" src="/apiz/imgGetCode" style="width:120px;height:40px;">
+        </div>
+
+<div id="label4" class="layui-form-item" style="margin-left:150px;width:200px;display: none;">
+</div>
+
+        <div class="layui-form-item" style="margin-left:50px">
+          <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo" style="width:150px;height:40px;">重置密码</button>
+          </div>
+        </div>
+
+        <div class="layui-form-item layui-input-inline" style="margin-left:50px;width:130px;">
+          <a href="index.html">返回主界面</a>
+        </div>
+
+        <div class="layui-form-item layui-input-inline" style="width:170px;">
+          <a href="register_login.html">已有账号？点击登录</a>
+        </div>
+
+        <div class="layui-form-item layui-input-inline" style="width:200px;">
+          <a href="register_register.html">没有账号？点击注册</a>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <div class="layui-col-md4">
+    <div class="grid-demo grid-demo-bg1">&nbsp</div>
+  </div>
+</div>
+
+
+<script src="./js/jquery-3.2.1.min.js"></script>
+<script src="https://www.layuicdn.com/layui/layui.js"></script>
+<script src="./js/register_rpsd.js"></script>
+</body>
+
+
+</html>

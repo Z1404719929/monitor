@@ -10,6 +10,80 @@ function imgChange() {
 	img.src = "/apiz/imgGetCode?t=" + time;
 }
 
+//手机号栏失焦时，验证手机号
+$(".cellphone").blur(function(){
+var reg=/^1\d{10}$/;			//手机号正则
+var cellphone=$('.cellphone').val()
+var status=reg.test(cellphone);			//判断
+if(status==false){
+document.getElementById("label2").style.display="block";
+document.getElementById("label2").innerHTML="<font color='red'>手机号格式不符合</font>"
+}else{
+document.getElementById("label2").style.display="none";
+}
+})
+
+
+//根据返回状态，提示错误
+function checkinfo(status){
+switch(status) {
+     case 0:
+document.getElementById("label2").style.display="block";
+document.getElementById("label2").innerHTML="<font color='red'>手机号必须11位</font>"
+document.getElementById("label1").style.display="none";
+document.getElementById("label3").style.display="none";
+document.getElementById("label4").style.display="none";
+        break;
+     case 1:
+document.getElementById("label2").style.display="block";
+document.getElementById("label2").innerHTML="<font color='red'>手机号格式不符合</font>"
+document.getElementById("label1").style.display="none";
+document.getElementById("label3").style.display="none";
+document.getElementById("label4").style.display="none";
+        break;
+     case 2:
+document.getElementById("label2").style.display="block";
+document.getElementById("label2").innerHTML="<font color='red'>手机号不存在</font>"
+document.getElementById("label1").style.display="none";
+document.getElementById("label3").style.display="none";
+document.getElementById("label4").style.display="none";
+        break;
+     case 3:
+document.getElementById("label1").style.display="block";
+document.getElementById("label1").innerHTML="<font color='red'>用户名与手机号不匹配</font>"
+document.getElementById("label2").style.display="none";
+document.getElementById("label3").style.display="none";
+document.getElementById("label4").style.display="none";
+        break;
+case 4:
+document.getElementById("label3").style.display="block";
+document.getElementById("label3").innerHTML="<font color='red'>两次密码不一致</font>"
+document.getElementById("label1").style.display="none";
+document.getElementById("label2").style.display="none";
+document.getElementById("label4").style.display="none";
+        break;
+case 5:
+document.getElementById("label3").style.display="block";
+document.getElementById("label3").innerHTML="<font color='red'>重置密码与原密码相同</font>"
+document.getElementById("label1").style.display="none";
+document.getElementById("label2").style.display="none";
+document.getElementById("label4").style.display="none";
+        break;
+case 6:
+document.getElementById("label4").style.display="block";
+document.getElementById("label4").innerHTML="<font color='red'>验证码错误</font>"
+document.getElementById("label1").style.display="none";
+document.getElementById("label2").style.display="none";
+document.getElementById("label3").style.display="none";
+        break;
+     default:
+document.getElementById("label1").style.display="none";
+document.getElementById("label2").style.display="none";
+document.getElementById("label3").style.display="none";
+document.getElementById("label4").style.display="none";
+}
+}
+
 // Demo
 layui.use('form', function () {
 	var form = layui.form;
@@ -22,11 +96,11 @@ layui.use('form', function () {
 			url: "/apiz/monitor_upwd/upwd",
 			// 数据传入后端
 			data: {
-				name: JSON.parse(JSON.stringify(data.field.name)),
-				cellphone: JSON.parse(JSON.stringify(data.field.cellphone)),
-				password: JSON.parse(JSON.stringify(data.field.password)),
-				password1: JSON.parse(JSON.stringify(data.field.password1)),
-				code: JSON.parse(JSON.stringify(data.field.code)),
+				name: $('.name').val(),
+				cellphone: $('.cellphone').val(),
+				password: $('.password').val(),
+				password1: $('.password1').val(),
+				code: $('.code').val(),
 			},
 			dataType: "json",
 			success: function (data) {
@@ -37,7 +111,9 @@ layui.use('form', function () {
 					alert(data.msg);
 					location.href = "monitor_login.html"
 				} else {
-					alert(data.msg);
+					//alert(data.msg);
+					checkinfo(data.status);
+					$('.code').val("");
 					imgChange();
 
 				}

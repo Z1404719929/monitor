@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.datang.hrb.util.MD5Util;
+import com.datangedu.cn.model.sysUser.Adminstrator;
 import com.datangedu.cn.model.sysUser.MonitorUser;
 import com.datangedu.cn.service.MonitorService;
 
@@ -32,36 +33,39 @@ public class monitor_login {
 		String cellphone=request.getParameter("cellphone");
 		String password=request.getParameter("password");
 		String code=request.getParameter("code");
-//		if(cellphone.isEmpty()) {
-//			map.put("msg","输入手机号" );
-//			return map;
-//		}
-//		if(password.isEmpty()) {
-//			map.put("msg","输入密码" );
-//			return map;
-//		}
-//		if(code.isEmpty()) {
-//			map.put("msg","输入验证码" );
-//			return map;
-//		}
+
 		if(!(cellphone.length()==11)) {
 			map.put("msg","手机号必须为11位");
+			map.put("status",0);
 			return map;
 		}
+		
+		String reg="^1\\d{10}$";
+		if(!cellphone.matches(reg)) {
+			map.put("msg","手机号格式不正确");
+			map.put("status",4);
+			return map;
+		}
+		
+		List<MonitorUser> userInfo = monitorservice.Selectbycellphone(cellphone);
+		if(userInfo.isEmpty()) {
+			map.put("msg","账号不存在" );
+			map.put("status",2);
+			return map;
+		}
+		
 		HttpSession session = request.getSession();
 		System.out.println("验证码"+session.getAttribute("code"));
 		if(!session.getAttribute("code").equals(code.toUpperCase())) {
 			map.put("msg","验证码错误" );
+			map.put("status",1);
 			return map;
 		}
 		System.out.println("22222");
-		List<MonitorUser> userInfo = monitorservice.Selectbycellphone(cellphone);
-		if(userInfo.isEmpty()) {
-			map.put("msg","账号不存在" );
-			return map;
-		}
+
 		if(!userInfo.get(0).getPassword().equals(MD5Util.getMD5(request.getParameter("password").getBytes()))) {
 			map.put("msg","密码错误" );
+			map.put("status",3);
 			return map;
 		}
 		System.out.println(userInfo.get(0).getUserName());

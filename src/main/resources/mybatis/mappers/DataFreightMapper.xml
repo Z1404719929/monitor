@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.datangedu.cn.dao.mapper.DataFreightMapper">
+  <resultMap id="BaseResultMap" type="com.datangedu.cn.model.sysUser.DataFreight">
+    <id column="index" jdbcType="INTEGER" property="index" />
+    <result column="Airportname" jdbcType="VARCHAR" property="airportname" />
+    <result column="Year" jdbcType="INTEGER" property="year" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="value" jdbcType="DOUBLE" property="value" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    index, Airportname, Year, month, value
+  </sql>
+  <select id="selectByExample" parameterType="com.datangedu.cn.model.sysUser.DataFreightExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from data_freight
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from data_freight
+    where index = #{index,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  <select id="selectbyyear" parameterType="java.lang.String" resultMap="BaseResultMap">
+   SELECT MONTH,SUM(VALUE) AS VALUE
+    FROM data_freight
+    WHERE Airportname LIKE '%${airportname}%' 
+    AND YEAR <![CDATA[ >= ]]>'${start}' AND YEAR <![CDATA[ <= ]]> '${end}'
+    GROUP BY MONTH
+    ORDER BY MONTH ASC
+  </select>
+  
+   <select id="selectbymonth" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT YEAR,SUM(VALUE) AS VALUE
+    FROM data_freight
+    WHERE Airportname LIKE '%${airportname}%' 
+    AND MONTH <![CDATA[ >= ]]>'${start}' AND MONTH <![CDATA[ <= ]]> '${end}'
+    GROUP BY YEAR
+    ORDER BY YEAR ASC
+  </select>
+  
+  <select id="selectquery" parameterType="java.lang.String" resultMap="BaseResultMap">
+   SELECT AIRPORTNAME,YEAR,MONTH,VALUE
+    FROM data_freight
+    WHERE Airportname LIKE '%${airportname}%' 
+    AND MONTH <![CDATA[ >= ]]> '${monthstart}' AND MONTH <![CDATA[ <= ]]> '${monthend}'
+    AND YEAR <![CDATA[ >= ]]> '${yearstart}' AND YEAR <![CDATA[ <= ]]> '${yearend}'
+    ORDER BY AIRPORTNAME,YEAR,MONTH ASC
+    LIMIT ${page},10
+  </select>
+  
+  <select id="selectqueryall" parameterType="java.lang.String" resultMap="BaseResultMap">
+   SELECT count(*) AS year
+    FROM data_freight
+    WHERE Airportname LIKE '%${airportname}%' 
+    AND MONTH <![CDATA[ >= ]]> '${monthstart}' AND MONTH <![CDATA[ <= ]]> '${monthend}'
+    AND YEAR <![CDATA[ >= ]]> '${yearstart}' AND YEAR <![CDATA[ <= ]]> '${yearend}'
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from data_freight
+    where index = #{index,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.datangedu.cn.model.sysUser.DataFreightExample">
+    delete from data_freight
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.datangedu.cn.model.sysUser.DataFreight">
+    insert into data_freight (index, Airportname, Year, 
+      month, value)
+    values (#{index,jdbcType=INTEGER}, #{airportname,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, 
+      #{month,jdbcType=INTEGER}, #{value,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.datangedu.cn.model.sysUser.DataFreight">
+    insert into data_freight
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="index != null">
+        index,
+      </if>
+      <if test="airportname != null">
+        Airportname,
+      </if>
+      <if test="year != null">
+        Year,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="index != null">
+        #{index,jdbcType=INTEGER},
+      </if>
+      <if test="airportname != null">
+        #{airportname,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.datangedu.cn.model.sysUser.DataFreightExample" resultType="java.lang.Long">
+    select count(*) from data_freight
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update data_freight
+    <set>
+      <if test="record.index != null">
+        index = #{record.index,jdbcType=INTEGER},
+      </if>
+      <if test="record.airportname != null">
+        Airportname = #{record.airportname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null">
+        Year = #{record.year,jdbcType=INTEGER},
+      </if>
+      <if test="record.month != null">
+        month = #{record.month,jdbcType=INTEGER},
+      </if>
+      <if test="record.value != null">
+        value = #{record.value,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update data_freight
+    set index = #{record.index,jdbcType=INTEGER},
+      Airportname = #{record.airportname,jdbcType=VARCHAR},
+      Year = #{record.year,jdbcType=INTEGER},
+      month = #{record.month,jdbcType=INTEGER},
+      value = #{record.value,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.datangedu.cn.model.sysUser.DataFreight">
+    update data_freight
+    <set>
+      <if test="airportname != null">
+        Airportname = #{airportname,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        Year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null">
+        month = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where index = #{index,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.datangedu.cn.model.sysUser.DataFreight">
+    update data_freight
+    set Airportname = #{airportname,jdbcType=VARCHAR},
+      Year = #{year,jdbcType=INTEGER},
+      month = #{month,jdbcType=INTEGER},
+      value = #{value,jdbcType=DOUBLE}
+    where index = #{index,jdbcType=INTEGER}
+  </update>
+</mapper>

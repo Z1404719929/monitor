@@ -54,6 +54,12 @@ public class monitor_center {
 		String id=request.getParameter("id");
 		//查找用户信息
 		MonitorUser userInfo = monitorservice.Select(id);
+		
+		Calendar calendar = new GregorianCalendar(); 			//
+        calendar.setTime(userInfo.getBorn()); 
+        calendar.add(calendar.DATE,1);		//增加一天日期，因为数据库是datetime类型，存入时后边时间是00:00，取出时会少一天
+        userInfo.setBorn(calendar.getTime());
+        
 		map.put("userinfo",userInfo);
 		System.out.println("111111111111111111"+userInfo.getRegionId());
 		//获取省市区
@@ -181,10 +187,6 @@ public class monitor_center {
         //日期String转换成Date
         java.text.SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd");
         Date date =  formatter.parse(request.getParameter("born"));
-        Calendar calendar = new GregorianCalendar(); 			//
-        calendar.setTime(date); 
-        calendar.add(calendar.DATE,1);		//增加一天日期，因为数据库是datetime类型，存入时后边时间是00:00，取出时会少一天
-        date=calendar.getTime();
         monitoruser.setBorn(date);														//出生日期
         monitoruser.setGender(Integer.parseInt(request.getParameter("gender")));		//性别
         //选择图片时

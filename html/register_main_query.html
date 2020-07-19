@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
+</head>
+
+<body class="layui-bg-gray">
+
+  <!--您的Layui代码start-->
+  <div>
+    <ul class="layui-nav" lay-filter="">
+      <li class="layui-nav-item map"><a href="register_main_map.html">机场分布</a>
+        <!-- <dl class="layui-nav-child "> 二级菜单
+      <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl> -->
+      </li>
+      <li class="layui-nav-item trend"><a href="register_main_trend.html">走势图按年份</a>
+      </li>
+      <li class="layui-nav-item"><a href="register_main_statistics.html">统计图按月份</a>
+      </li>
+      <li class="layui-nav-item year"><a href="register_main_year.html">按机场名,年份</a>
+      </li>
+      <li class="layui-nav-item month"><a href="register_main_month.html">按机场名,月份</a>
+      </li>
+      <li class="layui-nav-item service layui-this"><a href="register_main_query.html">查询</a>
+      </li>
+        <li class="layui-nav-item layui-layout-right">
+          <a href="register_center.html" class="user"><img src="//t.cn/RCzsdCq" class="layui-nav-img">四十四</a>
+          <dl class="layui-nav-child" style="margin-left:-5%;">
+            <dd><a href="register_center.html"><i class="layui-icon layui-icon-username"
+                  style="font-size: 20px; color: #1E9FFF;"></i>修改信息</a></dd>
+            <dd class="backups"><a><i class="layui-icon layui-icon-download-circle"
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库备份</a></dd>
+            <dd class="reduction"><a><i class="layui-icon layui-icon-upload-drag"
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库还原</a></dd>
+            <dd class="exit"><a><i class="layui-icon layui-icon-logout" style="font-size: 20px; color: #FF5722;"></i>
+                退出</a></dd>
+          </dl>
+        </li>
+    </ul>
+  </div>
+
+  <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <ul class="layui-tab-title">
+      <li id="freigth" class="layui-this">货运信息查询</li>
+      <li id="passenger">客运信息查询</li>
+    </ul>
+    <div class="layui-tab-content"></div>
+  </div>  
+
+
+  <div style="width: 1000px;margin: auto;" class="layui-tab-item layui-show">
+    <input id="airportname" placeholder="输入机场名" style="width:150px;" type="text" name="title" required autocomplete="off" lay-verify="required" class="layui-input layui-input-inline">
+    <input id="yearstart" placeholder="输入开始年份(2007-2020)" style="width:200px;" type="text" name="title" autocomplete="off" required lay-verify="required"   class="layui-input layui-input-inline">
+    <input id="yearend" placeholder="输入结束年份(2007-2020)" style="width:200px;" type="text" name="title" required autocomplete="off" lay-verify="required"   class="layui-input layui-input-inline">
+    <input id="monthstart" placeholder="输入开始月份(1-12)" style="width:150px;" type="text" name="title" required autocomplete="off" lay-verify="required"   class="layui-input layui-input-inline">
+    <input id="monthend" placeholder="输入结束月份(1-12)" style="width:150px;" type="text" name="title" required autocomplete="off" lay-verify="required"   class="layui-input layui-input-inline">
+    <button type="button" class="layui-btn layui-btn-normal" id="selectbtn">查询</button>
+  </div>
+
+
+      <!--表格-->
+    <div style="width: 1000px;margin: auto;" class="layui-tab-item layui-show">
+        <table class="layui-table" lay-skin="line" lay-size="lg">
+            <colgroup>
+              <col width="150">
+              <col width="200">
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>机场名</th>
+                <th>年份</th>
+                <th>月份</th>
+                <th>数量</th>
+                <th>单位</th>
+              </tr> 
+            </thead>
+            <tbody id="tbody">
+              <tr>
+                <td>aban</td>
+                <td>2016</td>
+                <td>11</td>
+                <td>154545</td>
+                <td>人次</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+        <!--分页-->
+        <div id="test1" style="width: 1000px;margin:auto;"></div>
+     
+
+ 
+
+
+  
+  <script src="https://www.layuicdn.com/layui/layui.js"></script>
+  <!-- <script src="./js/jquery-form.js"></script> -->
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="./js/register_main_query.js"></script>
+  <script src="./js/mysql.js"></script>
+</body>
+
+</html>

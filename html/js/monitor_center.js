@@ -138,7 +138,7 @@ function img() {
 	var username = sessionStorage.getItem("name");
 	$(".user").html("");
 	var txt = "";
-	txt += `<img src="/apiz/headImg?id=${userid}" onerror="defaultImg(this)" style="
+	txt += `<img src="/apiz/monitorheadImg?id=${userid}" onerror="defaultImg(this)" style="
     width: 50px;
     height: 50px;
     border-radius: 50px;">${username}`
@@ -154,7 +154,7 @@ function img2() {
 	var username = sessionStorage.getItem("name");
 	$(".checkimg").html("");
 	var txt = "";
-	txt += `<img id="demo1" src="/apiz/headImg?id=${userid}" onerror="defaultImg(this)" style="
+	txt += `<img id="demo1" src="/apiz/monitorheadImg?id=${userid}" onerror="defaultImg(this)" style="
     width: 200px;
     height: 200px;
     border-radius: 200px;">`
@@ -186,6 +186,7 @@ layui.use('form', function () {
 			success: function (data) {
 				console.log("成功后返回的数据11", data.msg);
 				alert(data.msg)
+				location.href = "monitor_center.html"
 			},
 			error: function (data) {
 				console.log("失败后返回的数据", data);

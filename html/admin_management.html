@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
+</head>
+
+<body class="layui-bg-gray">
+
+  <!--您的Layui代码start-->
+  <div>
+    <ul class="layui-nav" lay-filter="">
+      <li class="layui-nav-item"><a href="admin_main.html">主界面</a>
+      </li>
+      <li class="layui-nav-item service"><a href="admin_service.html">服务详情</a>
+      </li>
+      <li class="layui-nav-item service"><a href="admin_management.html">用户管理</a>
+      </li>
+        <li class="layui-nav-item layui-layout-right">
+          <a href="admin_center.html" class="user"><img src="//t.cn/RCzsdCq" class="layui-nav-img">四十四</a>
+          <dl class="layui-nav-child" style="margin-left:-5%;">
+            <dd><a href="admin_center.html"><i class="layui-icon layui-icon-username"
+                  style="font-size: 20px; color: #1E9FFF;"></i>修改信息</a></dd>
+            <dd class="backups"><a><i class="layui-icon layui-icon-download-circle"
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库备份</a></dd>
+            <dd class="reduction"><a><i class="layui-icon layui-icon-upload-drag"
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库还原</a></dd>
+            <dd class="exit"><a><i class="layui-icon layui-icon-logout" style="font-size: 20px; color: #FF5722;"></i>
+                退出</a></dd>
+          </dl>
+        </li>
+    </ul>
+  </div>
+
+  <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <ul class="layui-tab-title">
+      <li class="layui-this">注册用户账号管理</li>
+      <li>管理员账号管理</li>
+    </ul>
+    <div class="layui-tab-content"></div>
+  </div>  
+
+
+      <!--表格-->
+    <div style="width: 1000px;margin: auto;" class="layui-tab-item layui-show">
+        <table class="layui-table" lay-skin="line" lay-size="lg">
+            <colgroup>
+              <col width="150">
+              <col width="200">
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th>用户名</th>
+                <th>手机号</th>
+                <th>地区</th>
+                <th>注册时间</th>
+                <th>操作</th>
+              </tr> 
+            </thead>
+            <tbody>
+              <tr>
+                <td>四十四</td>
+                <td>2016-11-29</td>
+                <td>浙江省</td>
+                <td>人生就像是一场修行</td>
+                <td>
+                  <div class="layui-btn-group">
+                    <button type="button" class="layui-btn layui-btn-normal">
+                        <i class="layui-icon">&#x1005; 启用</i>
+                      </button>
+
+                    <button type="button" class="layui-btn layui-btn-danger">
+                      <i class="layui-icon">&#xe640; 删除</i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+        <!--分页-->
+        <div style="width: 1000px;margin-left:auto;">
+    <button type="button" class="layui-btn layui-btn-primary">
+        <i class="layui-icon">&#xe65a;</i>
+      </button>
+      <button type="button" class="layui-btn layui-btn-primary">
+        <i class="layui-icon">&#xe603;</i>
+      </button>
+
+      <!-- <div> -->
+    <i>
+      <button type="button" class="layui-btn layui-btn-primary">
+        <i class="layui-icon">1</i>
+      </button>
+      <button type="button" class="layui-btn layui-btn-primary">
+        <i class="layui-icon">2</i>
+      </button>
+      <button type="button" class="layui-btn layui-btn-primary">
+        <i class="layui-icon">...</i>
+      </button>
+      <button type="button" class="layui-btn layui-btn-primary">
+        <i class="layui-icon">100</i>
+      </button>
+    </i>
+    <!-- </div> -->
+
+      <button type="button" class="layui-btn layui-btn-primary">
+        <i class="layui-icon">&#xe602;</i>
+      </button>
+      <button type="button" class="layui-btn layui-btn-primary">
+        <i class="layui-icon">&#xe65b;</i>
+      </button>
+        </div>
+     
+
+ 
+
+
+  
+  <script src="https://www.layuicdn.com/layui/layui.js"></script>
+  <script src="./js/jquery-form.js"></script>
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="./js/admin_management.js"></script>
+  <script src="./js/mysql.js"></script>
+</body>
+
+</html>

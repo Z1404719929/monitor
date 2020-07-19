@@ -311,7 +311,7 @@ function img() {
 	var username = sessionStorage.getItem("name");
 	$(".user").html("");
 	var txt = "";
-	txt += `<img src="/apiz/headImg?id=${userid}" onerror="defaultImg(this)" style="
+	txt += `<img src="/apiz/monitorheadImg?id=${userid}" onerror="defaultImg(this)" style="
     width: 50px;
     height: 50px;
     border-radius: 50px;">${username}`

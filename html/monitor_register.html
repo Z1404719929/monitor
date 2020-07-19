@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
-
+<link rel="stylesheet" type="text/css" href="./css/custom.css" />
 </head>
 
 <div class="layui-row">
@@ -19,24 +19,24 @@
       <form class="layui-form" action="" style="width:700px;height:300px;margin:5%;margin-top:5%">
 
         <div class="layui-form-item" style="width:400px;">
-          <label class="layui-form-label">用户名</label>
-          <div class="layui-input-block">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-username"></i>
             <input type="text" name="name" required lay-verify="required" placeholder="请输入用户名" autocomplete="off"
-              class="layui-input cellphone">
+              class="layui-input name">
           </div>
         </div>
 
         <div class="layui-form-item" style="width:400px;">
-          <label class="layui-form-label">手机号</label>
-          <div class="layui-input-block">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-cellphone"></i>
             <input type="text" name="cellphone" required lay-verify="required" placeholder="请输入手机号" autocomplete="off"
               class="layui-input cellphone">
           </div>
         </div>
 
-        <div class="layui-form-item">
-          <label class="layui-form-label">选择地区</label>
-          <div class="layui-input-inline" style="width:120px;">
+        <div class="layui-form-item" style="margin-left:16%">
+          <div class="layui-input-inline inputdiv" style="width:100px;">
+	<i class="layui-icon layui-icon-location"></i>
             <select name="quiz1" id="province" lay-filter="province">
               <option value="">请选择省</option>
               <option value="浙江" selected="">浙江省</option>
@@ -46,7 +46,8 @@
                   class="layui-input layui-unselect"><i class="layui-edge"></i></div>
             </div>
           </div>
-          <div class="layui-input-inline" style="width:120px;">
+          <div class="layui-input-inline inputdiv" style="width:100px;">
+	<i class="layui-icon layui-icon-location"></i>
             <select name="quiz2" id="county" lay-filter="county">
               <option value="" class="region1">请选择市</option>
               <option value="杭州">杭州</option>
@@ -56,7 +57,8 @@
                   class="layui-input layui-unselect"><i class="layui-edge"></i></div>
             </div>
           </div>
-          <div class="layui-input-inline" style="width:120px;">
+          <div class="layui-input-inline inputdiv" style="width:100px;">
+	<i class="layui-icon layui-icon-location"></i>
             <select name="quiz3" id="district">
               <option value="" class="region2">请选择县/区</option>
             </select>
@@ -69,24 +71,24 @@
 
 
         <div class="layui-form-item" style="width:400px;">
-          <label class="layui-form-label">密码</label>
-          <div class="layui-input-block">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-password"></i>
             <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
               class="layui-input password">
           </div>
         </div>
 
         <div class="layui-form-item" style="width:400px;">
-          <label class="layui-form-label">确认密码</label>
-          <div class="layui-input-block">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-password"></i>
             <input type="password" name="password1" required lay-verify="required" placeholder="请确认密码"
               autocomplete="off" class="layui-input password1">
           </div>
         </div>
 
-        <div class="layui-form-item layui-input-inline" style="width:250px;">
-          <label class="layui-form-label">验证码</label>
-          <div class="layui-input-block">
+        <div class="layui-form-item layui-input-inline" style="width:270px;">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-vercode"></i>
             <input type="text" name="code" required lay-verify="required" placeholder="请输入验证码" autocomplete="off"
               class="layui-input code">
           </div>
@@ -124,9 +126,9 @@
   </div>
 </div>
 
+<script src="./js/jquery-3.2.1.min.js"></script>
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
 <script src="./js/monitor_register.js"></script>
-<script src="./js/jquery-3.2.1.min.js"></script>
 </body>
 
 

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
+<link rel="stylesheet" type="text/css" href="./css/custom.css" />
+</head>
+
+<div class="layui-row">
+  <div class="layui-col-md4">
+    <div class="grid-demo grid-demo-bg1">&nbsp</div>
+  </div>
+
+  <div class="layui-col-md4">
+    <div class="grid-demo" style=";margin:5%;margin-top:30%;">
+      <h1 style="font-family:verdana;margin-left:200px">管理员登录</h1>
+
+      <form class="layui-form" action="" style="width:700px;height:300px;margin:5%;margin-top:5%">
+
+        <div class="layui-form-item" style="width:400px;">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-cellphone"></i>
+            <input type="text" name="cellphone" required lay-verify="required" placeholder="请输入手机号" autocomplete="off"
+              class="layui-input cellphone">
+          </div>
+        </div>
+
+<div id="label1" class="layui-form-item" style="margin-left:150px;width:200px;display: none;">
+</div>
+
+        <div class="layui-form-item" style="width:400px;">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-password"></i>
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+              class="layui-input password">
+          </div>
+        </div>
+
+<div id="label2" class="layui-form-item" style="margin-left:150px;width:200px;display: none;">
+</div>
+
+        <div class="layui-form-item layui-input-inline" style="width:270px;">
+          <div class="layui-input-block inputdiv">
+	<i class="layui-icon layui-icon-vercode"></i>
+            <input type="text" name="code" required lay-verify="required" placeholder="请输入验证码" autocomplete="off"
+              class="layui-input code">
+          </div>
+        </div>
+
+        <div class="layui-form-item layui-input-inline" style="width:200px;">
+          <img onclick="imgChange()" class="checkimg" src="/apiz/imgGetCode" style="width:120px;height:40px;">
+        </div>
+
+<div id="label3" class="layui-form-item" style="margin-left:150px;width:200px;display: none;">
+</div>
+
+        <div class="layui-form-item" style="margin-left:50px">
+          <div class="layui-input-block">
+            <button class="layui-btn primary_button" lay-submit lay-filter="formDemo"
+              style="width:150px;height:40px;">登录</button>
+          </div>
+        </div>
+
+        <div class="layui-form-item layui-input-inline" style="margin-left:50px;width:300px;">
+          <a href="index.html">返回主界面</a>
+        </div>
+
+        <div class="layui-form-item layui-input-inline" style="width:200px;">
+          <a href="admin_rpsd.html">忘记密码？点击重置</a>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <div class="layui-col-md4">
+    <div class="grid-demo grid-demo-bg1">&nbsp</div>
+  </div>
+</div>
+
+<script src="./js/jquery-3.2.1.min.js"></script>
+<script src="https://www.layuicdn.com/layui/layui.js"></script>
+<script src="./js/admin_login.js"></script>
+</body>
+
+
+</html>

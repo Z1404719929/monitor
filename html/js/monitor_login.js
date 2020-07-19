@@ -10,6 +10,58 @@ function imgChange() {
 	img.src = "/apiz/imgGetCode?t=" + time;
 }
 
+$(".cellphone").blur(function(){
+var reg=/^1\d{10}$/;			//手机号正则
+var cellphone=$('.cellphone').val()
+console.log(cellphone)
+var status=reg.test(cellphone);			//判断
+if(status==false){
+document.getElementById("label1").style.display="block";
+document.getElementById("label1").innerHTML="<font color='red'>手机号格式不符合</font>"
+}else{
+document.getElementById("label1").style.display="none";
+}
+})
+
+//根据返回状态，提示错误
+function checkinfo(status){
+switch(status) {
+     case 0:
+document.getElementById("label1").style.display="block";
+document.getElementById("label1").innerHTML="<font color='red'>手机号必须11位</font>"
+document.getElementById("label2").style.display="none";
+document.getElementById("label3").style.display="none";
+        break;
+     case 1:
+document.getElementById("label3").style.display="block";
+document.getElementById("label3").innerHTML="<font color='red'>验证码错误</font>"
+document.getElementById("label1").style.display="none";
+document.getElementById("label2").style.display="none";
+        break;
+     case 2:
+document.getElementById("label1").style.display="block";
+document.getElementById("label1").innerHTML="<font color='red'>账号不存在</font>"
+document.getElementById("label2").style.display="none";
+document.getElementById("label3").style.display="none";
+        break;
+     case 3:
+document.getElementById("label2").style.display="block";
+document.getElementById("label2").innerHTML="<font color='red'>密码错误</font>"
+document.getElementById("label1").style.display="none";
+document.getElementById("label3").style.display="none";
+        break;
+     case 4:
+document.getElementById("label1").style.display="block";
+document.getElementById("label1").innerHTML="<font color='red'>手机号格式不正确</font>"
+document.getElementById("label2").style.display="none";
+document.getElementById("label3").style.display="none";
+        break;
+     default:
+document.getElementById("label1").style.display="none";
+document.getElementById("label2").style.display="none";
+document.getElementById("label3").style.display="none";
+}
+}
 
 //Demo
 layui.use('form', function () {
@@ -22,9 +74,9 @@ layui.use('form', function () {
 			url: "/apiz/monitor_login/login",
 			//数据传入后端
 			data: {
-				cellphone: JSON.parse(JSON.stringify(data.field.cellphone)),
-				password: JSON.parse(JSON.stringify(data.field.password)),
-				code: JSON.parse(JSON.stringify(data.field.code)),
+				cellphone: $('.cellphone').val(),
+				password: $('.password').val(),
+				code: $('.code').val(),
 			},
 			dataType: "json",
 			success: function (data) {
@@ -39,10 +91,11 @@ layui.use('form', function () {
 						sessionStorage.setItem("status", data.code);
 						location.href = "monitor_main.html"
 				} else {
-					alert(data.msg);
+					//alert(data.msg);
+					checkinfo(data.status);
+					$('.code').val("");
 					imgChange();
 				}
-				//				alert(data.msg);
 			},
 			error: function (data) {
 				console.log("失败后返回的数据", data);

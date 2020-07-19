@@ -28,8 +28,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.datang.hrb.util.ImgCodeUtil;
+import com.datangedu.cn.model.sysUser.Adminstrator;
 import com.datangedu.cn.model.sysUser.MonitorUser;
+import com.datangedu.cn.model.sysUser.RegisterUser;
+import com.datangedu.cn.service.AdminService;
 import com.datangedu.cn.service.MonitorService;
+import com.datangedu.cn.service.RegisterUserService;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
@@ -39,6 +43,10 @@ import com.jcraft.jsch.Session;
 public class ControllerPub {
 	@Resource
 	MonitorService monitorservice;
+	@Resource
+	RegisterUserService ruservice;
+	@Resource
+	AdminService adminservice;
 	
 	//网页跳转注解
 //	@RequestMapping("/redirect")
@@ -85,8 +93,46 @@ public class ControllerPub {
 	
 	//头像
 	@ResponseBody	
-	@RequestMapping(value="/headImg", produces = MediaType.IMAGE_PNG_VALUE)		//显示头像
-	public ResponseEntity<byte[]> headImg(String id) throws Exception{
+	@RequestMapping(value="/registerheadImg", produces = MediaType.IMAGE_PNG_VALUE)		//显示头像
+	public ResponseEntity<byte[]> registerheadImg(String id) throws Exception{
+//		System.out.println("tp");
+		byte[] imageContent ;
+		// 根据id获取当前用户的信息
+		RegisterUser user = ruservice.Select(id);
+				        
+		imageContent = user.getHeadImg();
+		System.out.println("图片==="+user.getHeadImg());
+				        
+		// 设置http头部信息
+		final HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_PNG);
+		// 返回响应实体
+		return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+	}
+	
+	//头像
+	@ResponseBody	
+	@RequestMapping(value="/adminheadImg", produces = MediaType.IMAGE_PNG_VALUE)		//显示头像
+	public ResponseEntity<byte[]> adminheadImg(String id) throws Exception{
+//		System.out.println("tp");
+		byte[] imageContent ;
+		// 根据id获取当前用户的信息
+		Adminstrator user = adminservice.Select(id);
+				        
+		imageContent = user.getHeadImg();
+		System.out.println("图片==="+user.getHeadImg());
+				        
+		// 设置http头部信息
+		final HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_PNG);
+		// 返回响应实体
+		return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+	}
+	
+	//头像
+	@ResponseBody	
+	@RequestMapping(value="/monitorheadImg", produces = MediaType.IMAGE_PNG_VALUE)		//显示头像
+	public ResponseEntity<byte[]> monitorheadImg(String id) throws Exception{
 //		System.out.println("tp");
 		byte[] imageContent ;
 		// 根据id获取当前用户的信息
