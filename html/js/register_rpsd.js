@@ -23,6 +23,25 @@ document.getElementById("label2").style.display="none";
 }
 })
 
+//密码验证
+$(".password1").blur(function(){
+	// var reg=/^1\d{10}$/;			//手机号正则
+	var password=$('.password').val()
+	var password1=$('.password1').val()
+	console.log("密码验证",password,password1)
+	// var status=reg.test(cellphone);			//判断
+	if(password!=password1){
+		console.log("密码验证",password,password1)
+		document.getElementById("label3").style.display="block";
+		document.getElementById("label3").innerHTML="<font color='red'>两次密码不一致</font>"
+		document.getElementById("label1").style.display="none";
+		document.getElementById("label2").style.display="none";
+		document.getElementById("label4").style.display="none";
+	}else{
+	document.getElementById("label3").style.display="none";
+	}
+})
+
 
 //根据返回状态，提示错误
 function checkinfo(status){

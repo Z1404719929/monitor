@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.datangedu.cn.model.sysUser.Freightbymonth;
-import com.datangedu.cn.model.sysUser.Freightbyyear;
-import com.datangedu.cn.model.sysUser.Passengerbymonth;
-import com.datangedu.cn.model.sysUser.Passengerbyyear;
+import com.datangedu.cn.model.sysUser.DataFreight;
+import com.datangedu.cn.model.sysUser.DataPassenger;
+//import com.datangedu.cn.model.sysUser.Freightbymonth;
+//import com.datangedu.cn.model.sysUser.Passengerbymonth;
 import com.datangedu.cn.service.AirTrendService;
 
 
@@ -30,11 +30,10 @@ public class air_trend {
 	//按年
 	//通过freightbyyear查走势图
 	@ResponseBody
-	@RequestMapping(value = "/freight_trend",method = RequestMethod.POST)
+	@RequestMapping(value = "/freight_year",method = RequestMethod.POST)
 	public Map <String,Object> Freight(HttpServletRequest request) {
 		Map<String,Object> map = new HashMap<String,Object>();
-//		List<DataFreight> trenddata = atservice.SelectFreight(request);
-		List<Freightbyyear> trenddata = atservice.SelectFreightbyyear();
+		List<DataFreight> trenddata = atservice.SelectFreightbyyear(request);
 
 		//取出年份和总数，分别存入数组
 		int []year= new int[trenddata.size()];
@@ -54,10 +53,10 @@ public class air_trend {
 	
 	//客运机场运量走势图数据
 	@ResponseBody
-	@RequestMapping(value = "/passenger_trend",method = RequestMethod.POST)	//客运机场信息
+	@RequestMapping(value = "/passenger_year",method = RequestMethod.POST)	//客运机场信息
 	public Map <String,Object> Passenger(HttpServletRequest request) {
 		Map<String,Object> map = new HashMap<String,Object>();
-		List<Passengerbyyear> trenddata = atservice.SelectPassengerbyyear();
+		List<DataPassenger> trenddata = atservice.SelectPassengerbyyear(request);
 		
 		//取出年份和总数，分别存入数组
 		int []year= new int[trenddata.size()];
@@ -81,7 +80,7 @@ public class air_trend {
 	public Map<String, Object> Freightbymonth(HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
 //			List<DataFreight> trenddata = atservice.SelectFreight(request);
-		List<Freightbymonth> trenddata = atservice.SelectFreightbymonth();
+		List<DataFreight> trenddata = atservice.SelectFreightbymonth(request);
 
 		// 取出年份和总数，分别存入数组
 		int[] year = new int[trenddata.size()];
@@ -104,7 +103,7 @@ public class air_trend {
 	@RequestMapping(value = "/passengerbymonth", method = RequestMethod.POST) // 客运机场信息
 	public Map<String, Object> Passengerbymonth(HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<Passengerbymonth> trenddata = atservice.SelectPassengerbymonth();
+		List<DataPassenger> trenddata = atservice.SelectPassengerbymonth(request);
 
 		// 取出年份和总数，分别存入数组
 		int[] year = new int[trenddata.size()];

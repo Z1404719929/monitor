@@ -15,25 +15,29 @@
         <!-- <dl class="layui-nav-child "> 二级菜单
       <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl> -->
       </li>
-      <li class="layui-nav-item trend"><a href="register_main_trend.html">走势图按年份</a>
+      <li class="layui-nav-item trend"><a href="register_main_trend_year.html">走势图按年份</a>
       </li>
-      <li class="layui-nav-item"><a href="register_main_statistics.html">统计图按月份</a>
+      <li class="layui-nav-item "><a href="register_main_trend_month.html">统计图按月份</a>
       </li>
-      <li class="layui-nav-item year"><a href="register_main_year.html">按机场名,年份</a>
+      <li class="layui-nav-item year "><a href="register_main_year.html">按机场名,年份</a>
       </li>
       <li class="layui-nav-item month"><a href="register_main_month.html">按机场名,月份</a>
       </li>
+      <li class="layui-nav-item top"><a href="register_main_top.html">TOP10</a>
+      </li>
       <li class="layui-nav-item service layui-this"><a href="register_main_query.html">查询</a>
+      </li>
+      <li class="layui-nav-item forecast"><a href="register_main_forecast.html">预测</a>
       </li>
         <li class="layui-nav-item layui-layout-right">
           <a href="register_center.html" class="user"><img src="//t.cn/RCzsdCq" class="layui-nav-img">四十四</a>
           <dl class="layui-nav-child" style="margin-left:-5%;">
             <dd><a href="register_center.html"><i class="layui-icon layui-icon-username"
                   style="font-size: 20px; color: #1E9FFF;"></i>修改信息</a></dd>
-            <dd class="backups"><a><i class="layui-icon layui-icon-download-circle"
+            <!-- <dd class="backups"><a><i class="layui-icon layui-icon-download-circle"
                   style="font-size: 20px; color: #1E9FFF;"></i> 数据库备份</a></dd>
             <dd class="reduction"><a><i class="layui-icon layui-icon-upload-drag"
-                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库还原</a></dd>
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库还原</a></dd> -->
             <dd class="exit"><a><i class="layui-icon layui-icon-logout" style="font-size: 20px; color: #FF5722;"></i>
                 退出</a></dd>
           </dl>
@@ -52,10 +56,12 @@
 
   <div style="width: 1000px;margin: auto;" class="layui-tab-item layui-show">
     <input id="airportname" placeholder="输入机场名" style="width:150px;" type="text" name="title" required autocomplete="off" lay-verify="required" class="layui-input layui-input-inline">
-    <input id="yearstart" placeholder="输入开始年份(2007-2020)" style="width:200px;" type="text" name="title" autocomplete="off" required lay-verify="required"   class="layui-input layui-input-inline">
-    <input id="yearend" placeholder="输入结束年份(2007-2020)" style="width:200px;" type="text" name="title" required autocomplete="off" lay-verify="required"   class="layui-input layui-input-inline">
+    <input id="yearstart" placeholder="输入开始年份(2007-2019)" style="width:200px;" type="text" name="title" autocomplete="off" required lay-verify="required"   class="layui-input layui-input-inline">
+    <input id="yearend" placeholder="输入结束年份(2007-2019)" style="width:200px;" type="text" name="title" required autocomplete="off" lay-verify="required"   class="layui-input layui-input-inline">
     <input id="monthstart" placeholder="输入开始月份(1-12)" style="width:150px;" type="text" name="title" required autocomplete="off" lay-verify="required"   class="layui-input layui-input-inline">
     <input id="monthend" placeholder="输入结束月份(1-12)" style="width:150px;" type="text" name="title" required autocomplete="off" lay-verify="required"   class="layui-input layui-input-inline">
+    <input id="datalow" placeholder="输入最小数量范围" style="width:150px;" type="text" name="title" required autocomplete="off" lay-verify="required"   class="layui-input layui-input-inline">
+    <input id="datahigh" placeholder="输入最大数量范围" style="width:150px;" type="text" name="title" required autocomplete="off" lay-verify="required"   class="layui-input layui-input-inline">
     <button type="button" class="layui-btn layui-btn-normal" id="selectbtn">查询</button>
   </div>
 

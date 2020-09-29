@@ -1,8 +1,6 @@
 package com.datangedu.cn.model.sysUser;
 
 public class DataFreight {
-    private Integer index;
-
     private String airportname;
 
     private Integer year;
@@ -11,13 +9,9 @@ public class DataFreight {
 
     private Double value;
 
-    public Integer getIndex() {
-        return index;
-    }
+    private Double longitude;
 
-    public void setIndex(Integer index) {
-        this.index = index;
-    }
+    private Double latitude;
 
     public String getAirportname() {
         return airportname;
@@ -49,5 +43,21 @@ public class DataFreight {
 
     public void setValue(Double value) {
         this.value = value;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 }

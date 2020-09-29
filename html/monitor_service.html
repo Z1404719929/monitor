@@ -24,6 +24,8 @@
       </li>
       <li class="layui-nav-item main"><a href="monitor_main.html">主界面</a>
       </li>
+      <li class="layui-nav-item data"><a href="monitor_data.html">数据处理</a>
+      </li>
         <li class="layui-nav-item layui-layout-right">
           <a href="monitor_center.html" class="user"><img src="//t.cn/RCzsdCq" class="layui-nav-img">四十四</a>
           <dl class="layui-nav-child" style="margin-left:-5%;">
@@ -58,10 +60,22 @@
       </thead>
       <tbody class="jpstbody">
         <tr>
-          <td>没有连接到主机</td>
-          <td>没有连接到主机</td>
-          <td><button type="button" class="layui-btn layui-btn-lg layui-btn-danger"
-              onclick="kill(${jps1[i]})">关闭进程</button></td>
+          <td>NameNode</td>
+          <td>无</td>
+          <td><button type="button" class="layui-btn layui-btn-lg"
+              onclick="open(NameNode)">开启进程</button></td>
+        </tr>
+        <tr>
+          <td>DFSZKFailoverController</td>
+          <td>无</td>
+          <td><button type="button" class="layui-btn layui-btn-lg"
+              onclick="open(DFSZKFailoverController)">开启进程</button></td>
+        </tr>
+        <tr>
+          <td>Master</td>
+          <td>无</td>
+          <td><button type="button" class="layui-btn layui-btn-lg"
+              onclick="open(Master)">开启进程</button></td>
         </tr>
       </tbody>
     </table>

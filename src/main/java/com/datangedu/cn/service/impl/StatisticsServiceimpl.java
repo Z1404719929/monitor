@@ -9,57 +9,53 @@ import org.springframework.stereotype.Service;
 
 import com.datangedu.cn.dao.mapper.DataFreightMapper;
 import com.datangedu.cn.dao.mapper.DataPassengerMapper;
-import com.datangedu.cn.dao.mapper.FreightbyairandmonthMapper;
-import com.datangedu.cn.dao.mapper.FreightbyairandyearMapper;
-import com.datangedu.cn.dao.mapper.PassengerbyairandmonthMapper;
-import com.datangedu.cn.dao.mapper.PassengerbyairandyearMapper;
+//import com.datangedu.cn.dao.mapper.FreightbyairandmonthMapper;
+//import com.datangedu.cn.dao.mapper.FreightbyairandyearMapper;
+//import com.datangedu.cn.dao.mapper.PassengerbyairandmonthMapper;
+//import com.datangedu.cn.dao.mapper.PassengerbyairandyearMapper;
 import com.datangedu.cn.model.sysUser.DataFreight;
 import com.datangedu.cn.model.sysUser.DataPassenger;
-import com.datangedu.cn.model.sysUser.Freightbyairandmonth;
-import com.datangedu.cn.model.sysUser.Freightbyairandyear;
-import com.datangedu.cn.model.sysUser.Passengerbyairandmonth;
-import com.datangedu.cn.model.sysUser.Passengerbyairandyear;
 import com.datangedu.cn.service.StatisticsService;
 
 @Service
 public class StatisticsServiceimpl implements StatisticsService {
 
-	// 按机场名，年份
-	@Resource
-	FreightbyairandyearMapper Freightbyairandyearmapper;
-	@Resource
-	PassengerbyairandyearMapper Passengerbyairandyearmapper;
-	// 按机场名，月份
-	@Resource
-	FreightbyairandmonthMapper Freightbyairandmonthmapper;
-	@Resource
-	PassengerbyairandmonthMapper Passengerbyairandmonthmapper;
-
-	// 按年份
-	//货运机场数据
-	public List<Freightbyairandyear> Freightbyairandyear(HttpServletRequest request) {
-		String airportname = request.getParameter("airportname");
-		return Freightbyairandyearmapper.selectbyairandyear(airportname);
-	};
-	
-	// 货客机场数据
-	public List<Passengerbyairandyear> Passengerbyairandyear(HttpServletRequest request) {
-		String airportname = request.getParameter("airportname");
-		return Passengerbyairandyearmapper.selectbyairandyear(airportname);
-	};
-
-	// 按月份
-	// 货运机场数据
-	public List<Freightbyairandmonth> Freightbyairandmonth(HttpServletRequest request) {
-		String airportname = request.getParameter("airportname");
-		return Freightbyairandmonthmapper.selectbyairandmonth(airportname);
-	};
-
-	// 货客机场数据
-	public List<Passengerbyairandmonth> Passengerbyairandmonth(HttpServletRequest request) {
-		String airportname = request.getParameter("airportname");
-		return Passengerbyairandmonthmapper.selectbyairandmonth(airportname);
-	};
+//	// 按机场名，年份
+//	@Resource
+//	FreightbyairandyearMapper Freightbyairandyearmapper;
+//	@Resource
+//	PassengerbyairandyearMapper Passengerbyairandyearmapper;
+//	// 按机场名，月份
+//	@Resource
+//	FreightbyairandmonthMapper Freightbyairandmonthmapper;
+//	@Resource
+//	PassengerbyairandmonthMapper Passengerbyairandmonthmapper;
+//
+//	// 按年份
+//	//货运机场数据
+//	public List<Freightbyairandyear> Freightbyairandyear(HttpServletRequest request) {
+//		String airportname = request.getParameter("airportname");
+//		return Freightbyairandyearmapper.selectbyairandyear(airportname);
+//	};
+//	
+//	// 货客机场数据
+//	public List<Passengerbyairandyear> Passengerbyairandyear(HttpServletRequest request) {
+//		String airportname = request.getParameter("airportname");
+//		return Passengerbyairandyearmapper.selectbyairandyear(airportname);
+//	};
+//
+//	// 按月份
+//	// 货运机场数据
+//	public List<Freightbyairandmonth> Freightbyairandmonth(HttpServletRequest request) {
+//		String airportname = request.getParameter("airportname");
+//		return Freightbyairandmonthmapper.selectbyairandmonth(airportname);
+//	};
+//
+//	// 货客机场数据
+//	public List<Passengerbyairandmonth> Passengerbyairandmonth(HttpServletRequest request) {
+//		String airportname = request.getParameter("airportname");
+//		return Passengerbyairandmonthmapper.selectbyairandmonth(airportname);
+//	};
 	
 	
 	
@@ -95,7 +91,7 @@ public class StatisticsServiceimpl implements StatisticsService {
 		if (!request.getParameter("end").isEmpty()) {
 			end = Integer.parseInt(request.getParameter("end"));
 		}
-		return DataFreightmapper.selectbyyear(airportname, start, end);
+		return DataFreightmapper.selectbyyear(airportname);
 	};
 
 //	//货运机场数据
@@ -109,7 +105,7 @@ public class StatisticsServiceimpl implements StatisticsService {
 		if (!request.getParameter("end").isEmpty()) {
 			end = Integer.parseInt(request.getParameter("end"));
 		}
-		return DataPassengermapper.selectbyyear(airportname, start, end);
+		return DataPassengermapper.selectbyyear(airportname);
 	};
 
 	// 按月份
@@ -124,7 +120,7 @@ public class StatisticsServiceimpl implements StatisticsService {
 		if (!request.getParameter("end").isEmpty()) {
 			end = Integer.parseInt(request.getParameter("end"));
 		}
-		return DataFreightmapper.selectbymonth(airportname, start, end);
+		return DataFreightmapper.selectbymonth(airportname);
 	};
 
 //		//货运机场数据
@@ -138,7 +134,7 @@ public class StatisticsServiceimpl implements StatisticsService {
 		if (!request.getParameter("end").isEmpty()) {
 			end = Integer.parseInt(request.getParameter("end"));
 		}
-		return DataPassengermapper.selectbymonth(airportname, start, end);
+		return DataPassengermapper.selectbymonth(airportname);
 	};
 
 }

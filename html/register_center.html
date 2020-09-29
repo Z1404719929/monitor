@@ -23,6 +23,10 @@
       </li>
       <li class="layui-nav-item month"><a href="register_main_month.html">按机场名,月份</a>
       </li>
+      <li class="layui-nav-item service"><a href="register_main_topyear.html">TOP10，按年份</a>
+      </li>
+      <li class="layui-nav-item service"><a href="register_main_topmonth.html">TOP10，按月份</a>
+      </li>
       <li class="layui-nav-item service"><a href="register_main_query.html">查询</a>
       </li>
         <li class="layui-nav-item layui-layout-right">
@@ -30,10 +34,10 @@
           <dl class="layui-nav-child" style="margin-left:-5%;">
             <dd><a href="register_center.html"><i class="layui-icon layui-icon-username"
                   style="font-size: 20px; color: #1E9FFF;"></i>修改信息</a></dd>
-            <dd class="backups"><a><i class="layui-icon layui-icon-download-circle"
+            <!-- <dd class="backups"><a><i class="layui-icon layui-icon-download-circle"
                   style="font-size: 20px; color: #1E9FFF;"></i> 数据库备份</a></dd>
             <dd class="reduction"><a><i class="layui-icon layui-icon-upload-drag"
-                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库还原</a></dd>
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库还原</a></dd> -->
             <dd class="exit"><a><i class="layui-icon layui-icon-logout" style="font-size: 20px; color: #FF5722;"></i>
                 退出</a></dd>
           </dl>
@@ -46,7 +50,7 @@
     <div class="layui-form-item" style="width:500px;">
       <label class="layui-form-label">用户名</label>
       <div class="layui-input-block">
-        <input type="text" name="username" required lay-verify="required" value="" placeholder="请输入用户名"
+        <input type="text" id="username" name="username" required lay-verify="required" value="" placeholder="请输入用户名"
           autocomplete="off" class="layui-input username">
       </div>
     </div>

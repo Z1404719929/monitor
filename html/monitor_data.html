@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
+
+</head>
+
+<body class="layui-bg-gray">
+
+  <!--您的Layui代码start-->
+  <div>
+    <ul class="layui-nav" lay-filter="">
+      <li class="layui-nav-item"><a href="monitor_main.html">主界面</a>
+      </li>
+      <li class="layui-nav-item service"><a href="monitor_service.html">服务详情</a>
+      </li>
+      <li class="layui-nav-item data"><a href="monitor_data.html">数据处理</a>
+      </li>
+        <li class="layui-nav-item layui-layout-right">
+          <a href="monitor_center.html" class="user"><img src="//t.cn/RCzsdCq" class="layui-nav-img">四十四</a>
+          <dl class="layui-nav-child" style="margin-left:-5%;">
+            <dd><a href="monitor_center.html"><i class="layui-icon layui-icon-username"
+                  style="font-size: 20px; color: #1E9FFF;"></i>修改信息</a></dd>
+            <dd class="backups"><a><i class="layui-icon layui-icon-download-circle"
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库备份</a></dd>
+            <dd class="reduction"><a><i class="layui-icon layui-icon-upload-drag"
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库还原</a></dd>
+            <dd class="exit"><a><i class="layui-icon layui-icon-logout" style="font-size: 20px; color: #FF5722;"></i>
+                退出</a></dd>
+          </dl>
+        </li>
+    </ul>
+  </div>
+
+
+  <div style="width:1500px;height:600px;margin:auto;margin-top:5%;">
+    <button id="freight" type="button" class="layui-btn layui-btn-lg ">货运数据处理</button>
+    <button id="passenger" type="button" class="layui-btn layui-btn-lg ">客运数据处理</button>
+    <!-- <button id="collection1" type="button" class="layui-btn layui-btn-lg ">获取货运数据的hdfs路径</button>
+    <button id="hive1" type="button" class="layui-btn layui-btn-lg ">存入hive表freight</button>
+    <button id="collection2" type="button" class="layui-btn layui-btn-lg ">获取客运数据的hdfs路径</button>
+    <button id="hive2" type="button" class="layui-btn layui-btn-lg ">存入hive表passenger</button>
+    <button id="coll" type="button" class="layui-btn layui-btn-lg ">采集到本地</button>
+    <button id="clean" type="button" class="layui-btn layui-btn-lg ">数据处理</button> -->
+    <!-- <button id="analysis" type="button" class="layui-btn layui-btn-lg ">数据分析</button> -->
+    <button id="freightforecast" type="button" class="layui-btn layui-btn-lg ">货运数据预测</button>
+    <button id="passengerforecast" type="button" class="layui-btn layui-btn-lg ">客运数据预测</button>
+  </div>
+
+  <!-- <div style="width:800px;height:600px;margin:auto;margin-top:5%;">
+    <table class="layui-table">
+      <colgroup>
+        <col width="150">
+        <col width="200">
+        <col>
+      </colgroup>
+      <thead>
+        <tr>
+          <th>进程名</th>
+          <th>端口号</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody class="jpstbody">
+        <tr>
+          <td>没有连接到主机</td>
+          <td>没有连接到主机</td>
+          <td><button type="button" class="layui-btn layui-btn-lg layui-btn-danger"
+              onclick="kill(${jps1[i]})">关闭进程</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+
+
+
+
+  <script src="https://www.layuicdn.com/layui/layui.js"></script>
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="./js/monitor_data.js"></script>
+  <script src="./js/mysql.js"></script>
+
+</body>
+
+</html>

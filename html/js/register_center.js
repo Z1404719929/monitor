@@ -184,8 +184,8 @@ layui.use('form', function () {
 			},
 			dataType: "json",
 			success: function (data) {
-				console.log("成功后返回的数据11", data.msg);
 				alert(data.msg)
+				sessionStorage.setItem("name", $("#username").val());
 				location.href = "register_center.html"
 			},
 			error: function (data) {

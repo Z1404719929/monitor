@@ -48,7 +48,7 @@ public class monitor_main {
 		System.out.println("command="+command);
 		ControllerPub pub=new ControllerPub();
 		int exec=pub.exec(host,command);
-//		System.out.println("465464"+exec);
+		System.out.println("465464"+exec);
 		map.put("status", exec);
 		return map;
 		}

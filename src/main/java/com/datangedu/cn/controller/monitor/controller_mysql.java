@@ -57,7 +57,7 @@ public class controller_mysql {
 
 		String database = "settopbox"; // 需要备份的数据库名
 
-		String filepath = "D:\\workspace2\\Monitor\\mysql\\stp.sql"; // 需要备份到的地址
+		String filepath = "D:\\workspace2\\Airport\\mysql\\airport.sql"; // 需要备份到的地址
 
 		String stmt1 = "mysqldump " + database + " -u " + user + " -p" + password + " --result-file=" + filepath;	//命令
 
@@ -82,7 +82,7 @@ public class controller_mysql {
 	@RequestMapping(value = "/reduction", method = RequestMethod.POST) // 路径拦截查找用户信息
 	public Map<String, Object> restore() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String databaseName="settopbox";
+		String databaseName="airport";
         try {
             Runtime runtime = Runtime.getRuntime();
             Process process = runtime
@@ -90,7 +90,7 @@ public class controller_mysql {
                             + databaseName);
             OutputStream outputStream = process.getOutputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(
-                    new FileInputStream("D:\\workspace2\\Monitor\\mysql\\stp.sql"), "utf-8"));
+                    new FileInputStream("D:\\workspace2\\Airport\\mysql\\airport.sql"), "utf-8"));
 //            System.out.println("4564646=="+br);
             String str = null;
             StringBuffer sb = new StringBuffer();

@@ -10,6 +10,7 @@ import org.apache.hadoop.conf.Configuration;
 //import org.apache.sqoop.tool.SqoopTool;
 //import org.apache.sqoop.util.OptionsFileUtil;
 //import org.junit.*;
+import org.springframework.boot.SpringApplication;
 
 public class HiveApi {
 	// 驱动名称，固定写法
@@ -23,6 +24,17 @@ public class HiveApi {
 	private static Connection conn = null;
 	private static Statement stmt = null;
 	private static ResultSet rs = null;
+	
+	
+	public static void main(String[] args) throws Exception{
+//		SpringApplication.run(AirportApplication.class, args);
+		HiveApi api=new HiveApi();
+		api.init();
+//		api.createDatabase();
+		api.showDatabases();
+		api.destory();
+	}
+	
 
 	// 加载驱动、创建连接
 //	@Before
@@ -75,7 +87,10 @@ public class HiveApi {
 	// 创建表
 //	@Test
 	public void createTable() throws Exception {
-		String sql = "create table stu(code string,name string,gender string,school string,profession string,phone string) row format delimited fields terminated by '\t' stored as textfile";
+		String sql = "create table freight(Airportname string,Year int,January double,"
+				+ "February double,March double,April double,May double,"
+				+ "June double,July double double,August double,September double,October double,"
+				+ "November double,December double,Wholeyear double,Airportcoordinates string) row format delimited fields terminated by ',' stored as textfile";
 		System.out.println("Running:" + sql);
 		stmt.execute(sql);
 		System.out.println("Running:" + sql + ";success!");
@@ -103,11 +118,21 @@ public class HiveApi {
 		}
 	}
 
-	// 加载数据
+	// 加载数据freight
 //	@Test
-	public void loadData() throws Exception {
-		String filePath = "/home/zhaochaoqun/hive/data/short-student-utf8.txt";
-		String sql = "load data local inpath '"+filePath+"' overwrite into table stu";
+	public void loadDatafreight(String filePath) throws Exception {
+//		String filePath = "/flume/freight";
+		String sql = "load data inpath '"+filePath+"' into table freight";
+		System.out.println("Running:" + sql);
+		stmt.execute(sql);
+		System.out.println("Running:" + sql + ";success!");
+	}
+	
+	// 加载数据freight
+//	@Test
+	public void loadDatapassenger(String filePath) throws Exception {
+//		String filePath = "/flume/freight";
+		String sql = "load data inpath '"+filePath+"' into table passenger";
 		System.out.println("Running:" + sql);
 		stmt.execute(sql);
 		System.out.println("Running:" + sql + ";success!");

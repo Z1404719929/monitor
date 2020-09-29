@@ -19,6 +19,8 @@ $("#freigth").on("click", function () {
 	$('#yearend').val("")
 	$('#monthstart').val("")
 	$('#monthend').val("")
+	$('#datalow').val("")
+	$('#datahigh').val("")
 	pagenow=1;
 	selectfreight()
 	paging()
@@ -31,6 +33,8 @@ $("#passenger").on("click", function () {
 	$('#yearend').val("")
 	$('#monthstart').val("")
 	$('#monthend').val("")
+	$('#datalow').val("")
+	$('#datahigh').val("")
 	pagenow=1;
 	selectpassenger()
 	paging()
@@ -53,6 +57,8 @@ function selectfreight() {
 			yearend:$('#yearend').val(),
 			monthstart:$('#monthstart').val(),
 			monthend:$('#monthend').val(),
+			datalow:$('#datalow').val(),
+			datahigh:$('#datahigh').val(),
 			page:pagenow,
 		},
 		//返回数据类型
@@ -87,6 +93,8 @@ function selectpassenger() {
 			yearend:$('#yearend').val(),
 			monthstart:$('#monthstart').val(),
 			monthend:$('#monthend').val(),
+			datalow:$('#datalow').val(),
+			datahigh:$('#datahigh').val(),
 			page:pagenow,
 		},
 		//返回数据类型
@@ -129,7 +137,11 @@ function table(){
 $("#selectbtn").on("click", function () {
 	console.log("ok")
 	pagenow=1;
+	if(unit=="吨"){
 	selectfreight()
+	}else{
+	selectpassenger()
+	}
 	paging()
 })
 

@@ -3,6 +3,12 @@ var jps2 = new Array();
 var local;
 var post;
 var status = 0;
+// var nnjps=["NameNode","DFSZKFailoverController","Master"]
+// var nnstatus=["开启","开启","开启"]
+// var nnhost=["无","无","无"]
+// var dnjps=["DataNode","JournalNode","QuorumPeerMain","Worker"]
+// var dnstatus=["开启","开启","开启","开启"]
+// var dnhost=["无","无","无","无"]
 
 $(function () {
 	sessionStorage.setItem("ip", 50);
@@ -70,27 +76,104 @@ function linkjps() {
 
 
 function tbody() {
-	if (status == '-1') {
-		var txt = "";
-		for (var i = 0; i < jps1.length; i++) {
+	var nnjps=["NameNode","DFSZKFailoverController","Master"]
+	var nnstatus=["开启","开启","开启"]
+	var nnhost=["无","无","无"]
+	var dnjps=["DataNode","JournalNode","QuorumPeerMain","Worker"]
+	var dnstatus=["开启","开启","开启","开启"]
+	var dnhost=["无","无","无","无"]
+
+	if(sessionStorage.getItem("ip")<60){
+		if (status == '-1') {
+			var txt = "";
+			//判断进程是否开启
+			for (var i = 0; i < nnjps.length; i++) {
+				for(var j = 0; j < jps2.length; j++){
+					if(jps2[j]==nnjps[i]){
+						nnstatus[i]="关闭";
+						nnhost[i]=jps1[j];
+					}
+				}
+			}
+			for(var i = 0; i < nnjps.length;i++){
+				console.log(i)
+				if(nnstatus[i]=="关闭"){
+				$(".jpstbody").html("");
+					txt += ` <tr>
+					  <td>${nnjps[i]}</td>
+					  <td>${nnhost[i]}</td>
+					  <td><button type="button" class="layui-btn layui-btn-lg layui-btn-danger" onclick="kill(${nnhost[i]})">关闭进程</button></td>
+						</tr>`
+					$(".jpstbody").append(txt);
+				}else{
+					$(".jpstbody").html("");
+					txt += ` <tr>
+					  <td>${nnjps[i]}</td>
+					  <td>无</td>
+					  <td><button type="button" class="layui-btn layui-btn-lg" onclick='open1(\"${nnjps[i]}\")'>开启进程</button></td>
+						</tr>`
+					$(".jpstbody").append(txt);
+				}
+			}
+		}
+		if (status == '0') {
+			var txt = "";
+			for (var i = 0; i < nnjps.length; i++) {
 			$(".jpstbody").html("");
 			txt += ` <tr>
-      <td>${jps2[i]}</td>
-      <td>${jps1[i]}</td>
-      <td><button type="button" class="layui-btn layui-btn-lg layui-btn-danger" onclick="kill(${jps1[i]})">关闭进程</button></td>
-    </tr>`
+		      <td>${nnjps[i]}</td>
+		      <td>无</td>
+		      <td><button type="button" class="layui-btn layui-btn-lg" onclick="open1(\"${nnjps[i]}\")">开启进程</button></td>
+		    </tr>`
 			$(".jpstbody").append(txt);
+			}
 		}
 	}
-	if (status == '0') {
-		var txt = "";
-		$(".jpstbody").html("");
-		txt += ` <tr>
-	      <td>没有连接到主机</td>
-	      <td>没有连接到主机</td>
-	      <td><button type="button" class="layui-btn layui-btn-lg layui-btn-danger">关闭进程</button></td>
-	    </tr>`
-		$(".jpstbody").append(txt);
+	else{
+		if (status == '-1') {
+			var txt = "";
+			//判断进程是否开启
+			for (var i = 0; i < dnjps.length; i++) {
+				for(var j = 0; j < jps2.length; j++){
+					if(jps2[j]==dnjps[i]){
+						dnstatus[i]="关闭";
+						dnhost[i]=jps1[j];
+					}
+				}
+			}
+			for(var i = 0; i < dnjps.length;i++){
+				console.log(i)
+				if(dnstatus[i]=="关闭"){
+				$(".jpstbody").html("");
+					txt += ` <tr>
+					  <td>${dnjps[i]}</td>
+					  <td>${dnhost[i]}</td>
+					  <td><button type="button" class="layui-btn layui-btn-lg layui-btn-danger" onclick="kill(${dnhost[i]})">关闭进程</button></td>
+						</tr>`
+					$(".jpstbody").append(txt);
+				}else{
+					$(".jpstbody").html("");
+					txt += ` <tr>
+					  <td>${dnjps[i]}</td>
+					  <td>无</td>
+					  <td><button type="button" class="layui-btn layui-btn-lg" onclick='open1(\"${dnjps[i]}\")'>开启进程</button></td>
+						</tr>`
+					$(".jpstbody").append(txt);
+				}
+			}
+		}
+		if (status == '0') {
+			var txt = "";
+			for (var i = 0; i < dnjps.length; i++) {
+			$(".jpstbody").html("");
+			txt += ` <tr>
+		      <td>${dnjps[i]}</td>
+		      <td>无</td>
+		      <td><button type="button" class="layui-btn layui-btn-lg" onclick="open1(\"${dnjps[i]}\")">开启进程</button></td>
+		    </tr>`
+			$(".jpstbody").append(txt);
+			}
+		}
 	}
 }
 
@@ -112,8 +195,56 @@ function kill(port) {
 		dataType: "json",
 		// 请求成功后调用函数
 		success: function (data) {
+			console.log("成功杀死进程", data);
+			// location.href = "monitor_service.html"
+			status=data.status
+			if (status == '-1') {
+			alert("成功")
+			jps1.length = 0;
+			jps2.length = 0;
+			jps();
+			}else{
+				alert("失败")
+			}
+			
+		},
+		error: function (data) {
+			console.log("失败后返回的数据", data);
+			//			location.href="monitor_service.html"
+		}
+	})
+}
+
+function open1(str) {
+	console.log(str);
+	var command = "bash /home/zhaochaoqun/sh/" + str + ".sh";
+
+	console.log(command);
+	$.ajax({
+		// 请求类型
+		type: "post",
+		// 请求路径
+		url: "/apiz/monitor_main/linklinux",
+		// 请求参数
+		data: {
+			local: local,
+			command: command,
+		},
+		// 返回数据类型
+		dataType: "json",
+		// 请求成功后调用函数
+		success: function (data) {
 			console.log("成功后返回的数据", data);
-			location.href = "monitor_service.html"
+			// location.href = "monitor_service.html"
+			status=data.status
+			if (status == '-1') {
+			alert("成功")
+			jps1.length = 0;
+			jps2.length = 0;
+			jps();
+			}else{
+				alert("失败")
+			}
 		},
 		error: function (data) {
 			console.log("失败后返回的数据", data);

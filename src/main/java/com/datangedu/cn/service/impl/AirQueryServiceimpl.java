@@ -26,41 +26,97 @@ public class AirQueryServiceimpl implements AirQueryService{
 	//货运机场数据
 	@Override
 	public List<DataFreight> FreigthSelectQuery(HttpServletRequest request) {
-		int []arr= new int[5];
+		int []arr= new int[6];
 		arr=data(request);
 		String airportname=request.getParameter("airportname");
-		return DataFreightmapper.selectquery(airportname, arr[0], arr[1], arr[2], arr[3], arr[4]);
+		double datalow=0;
+		double datahigh=999999999;
+		if (!(request.getParameter("datalow")==null)) {
+			try {
+				datalow=Double.parseDouble(request.getParameter("datalow"));
+		} catch (Exception e) {
+			
+		}
+			
+		}
+		if (!(request.getParameter("datahigh")==null)) {
+			try {
+				datahigh=Double.parseDouble(request.getParameter("datahigh"));
+		} catch (Exception e) {
+			
+		}
+			
+		}
+		return DataFreightmapper.selectquery(airportname, arr[0], arr[1], arr[2], arr[3], arr[4],datalow,datahigh);
 	};
 	
 	//货运机场数据
 	@Override
 	public List<DataFreight> FreightSelectQueryall(HttpServletRequest request){
-		String airportname=request.getParameter("airportname");
-		System.out.println(airportname);
-		int []arr= new int[5];
+		int []arr= new int[6];
 		arr=data(request);
-		System.out.println("条件"+arr[0]+" "+ arr[1]+" "+arr[2]+" "+arr[3]);
-		return DataFreightmapper.selectqueryall(airportname, arr[0], arr[1], arr[2], arr[3]);
+		String airportname=request.getParameter("airportname");
+		double datalow=0;
+		double datahigh=999999999;
+		if (!(request.getParameter("datalow")==null)) {
+			try {
+				datalow=Double.parseDouble(request.getParameter("datalow"));
+		} catch (Exception e) {
+		}
+		}
+		if (!(request.getParameter("datahigh")==null)) {
+			try {
+				datahigh=Double.parseDouble(request.getParameter("datahigh"));
+		} catch (Exception e) {
+		}
+		}
+		return DataFreightmapper.selectqueryall(airportname, arr[0], arr[1], arr[2], arr[3],datalow,datahigh);
 		}
 	
-	// 货运机场数据
+	// 客运机场数据
 	@Override
 	public List<DataPassenger> PassengerSelectQuery(HttpServletRequest request) {
-		int[] arr = new int[5];
+		int[] arr = new int[6];
 		arr = data(request);
 		String airportname = request.getParameter("airportname");
-		return DataPassengermapper.selectquery(airportname, arr[0], arr[1], arr[2], arr[3], arr[4]);
+		double datalow=0;
+		double datahigh=999999999;
+		if (!(request.getParameter("datalow")==null)) {
+			try {
+				datalow=Double.parseDouble(request.getParameter("datalow"));
+		} catch (Exception e) {
+		}
+		}
+		if (!(request.getParameter("datahigh")==null)) {
+			try {
+				datahigh=Double.parseDouble(request.getParameter("datahigh"));
+		} catch (Exception e) {
+		}
+		}
+		return DataPassengermapper.selectquery(airportname, arr[0], arr[1], arr[2], arr[3], arr[4],datalow,datahigh);
 	};
 
-	// 货运机场数据
+	// 客运机场数据
 	@Override
 	public List<DataPassenger> PassengerSelectQueryall(HttpServletRequest request) {
 		String airportname = request.getParameter("airportname");
-		System.out.println(airportname);
-		int[] arr = new int[5];
+		int[] arr = new int[6];
 		arr = data(request);
-		System.out.println("条件" + arr[0] + " " + arr[1] + " " + arr[2] + " " + arr[3]);
-		return DataPassengermapper.selectqueryall(airportname, arr[0], arr[1], arr[2], arr[3]);
+		double datalow=0;
+		double datahigh=999999999;
+		if (!(request.getParameter("datalow")==null)) {
+			try {
+				datalow=Double.parseDouble(request.getParameter("datalow"));
+		} catch (Exception e) {
+		}
+		}
+		if (!(request.getParameter("datahigh")==null)) {
+			try {
+				datahigh=Double.parseDouble(request.getParameter("datahigh"));
+		} catch (Exception e) {
+		}
+		}
+		return DataPassengermapper.selectqueryall(airportname, arr[0], arr[1], arr[2], arr[3],datalow,datahigh);
 	}
 	
 	
@@ -87,7 +143,7 @@ public class AirQueryServiceimpl implements AirQueryService{
 		}
 		if (!request.getParameter("page").isEmpty()) {
 			arr[4]=(Integer.valueOf(request.getParameter("page"))-1)*10;
-		}	
+		}
 		return arr;
 	}
 	

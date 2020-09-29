@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.datangedu.cn.dao.mapper.AlldataMapper">
+  <resultMap id="BaseResultMap" type="com.datangedu.cn.model.sysUser.Alldata">
+    <result column="Airportname" jdbcType="VARCHAR" property="airportname" />
+    <result column="Year" jdbcType="INTEGER" property="year" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="freightvalue" jdbcType="DOUBLE" property="freightvalue" />
+    <result column="passengervalue" jdbcType="DOUBLE" property="passengervalue" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Airportname, Year, longitude, latitude, month, freightvalue, passengervalue
+  </sql>
+  <select id="selectByExample" parameterType="com.datangedu.cn.model.sysUser.AlldataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from alldata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+   <select id="selectall" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT Airportname,longitude,latitude,freightvalue,passengervalue
+    FROM alldata
+    WHERE YEAR = '${year}' and MONTH = '${month}'
+    GROUP BY Airportname
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <delete id="deleteByExample" parameterType="com.datangedu.cn.model.sysUser.AlldataExample">
+    delete from alldata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.datangedu.cn.model.sysUser.Alldata">
+    insert into alldata (Airportname, Year, longitude, 
+      latitude, month, freightvalue, 
+      passengervalue)
+    values (#{airportname,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, #{longitude,jdbcType=DOUBLE}, 
+      #{latitude,jdbcType=DOUBLE}, #{month,jdbcType=INTEGER}, #{freightvalue,jdbcType=DOUBLE}, 
+      #{passengervalue,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.datangedu.cn.model.sysUser.Alldata">
+    insert into alldata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="airportname != null">
+        Airportname,
+      </if>
+      <if test="year != null">
+        Year,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="freightvalue != null">
+        freightvalue,
+      </if>
+      <if test="passengervalue != null">
+        passengervalue,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="airportname != null">
+        #{airportname,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="freightvalue != null">
+        #{freightvalue,jdbcType=DOUBLE},
+      </if>
+      <if test="passengervalue != null">
+        #{passengervalue,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.datangedu.cn.model.sysUser.AlldataExample" resultType="java.lang.Long">
+    select count(*) from alldata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update alldata
+    <set>
+      <if test="record.airportname != null">
+        Airportname = #{record.airportname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null">
+        Year = #{record.year,jdbcType=INTEGER},
+      </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.month != null">
+        month = #{record.month,jdbcType=INTEGER},
+      </if>
+      <if test="record.freightvalue != null">
+        freightvalue = #{record.freightvalue,jdbcType=DOUBLE},
+      </if>
+      <if test="record.passengervalue != null">
+        passengervalue = #{record.passengervalue,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update alldata
+    set Airportname = #{record.airportname,jdbcType=VARCHAR},
+      Year = #{record.year,jdbcType=INTEGER},
+      longitude = #{record.longitude,jdbcType=DOUBLE},
+      latitude = #{record.latitude,jdbcType=DOUBLE},
+      month = #{record.month,jdbcType=INTEGER},
+      freightvalue = #{record.freightvalue,jdbcType=DOUBLE},
+      passengervalue = #{record.passengervalue,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

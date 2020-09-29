@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.datangedu.cn.dao.mapper.DataFreightMapper">
   <resultMap id="BaseResultMap" type="com.datangedu.cn.model.sysUser.DataFreight">
-    <id column="index" jdbcType="INTEGER" property="index" />
     <result column="Airportname" jdbcType="VARCHAR" property="airportname" />
     <result column="Year" jdbcType="INTEGER" property="year" />
     <result column="month" jdbcType="INTEGER" property="month" />
     <result column="value" jdbcType="DOUBLE" property="value" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    index, Airportname, Year, month, value
+    Airportname, Year, month, value, longitude, latitude
   </sql>
   <select id="selectByExample" parameterType="com.datangedu.cn.model.sysUser.DataFreightExample" resultMap="BaseResultMap">
     select
@@ -83,39 +84,41 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from data_freight
-    where index = #{index,jdbcType=INTEGER}
-  </select>
   
-  
-  
-  <select id="selectbyyear" parameterType="java.lang.String" resultMap="BaseResultMap">
-   SELECT MONTH,SUM(VALUE) AS VALUE
+    <!--TOP 10-->
+   <select id="selecttop" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT Airportname,SUM(VALUE) AS VALUE
     FROM data_freight
-    WHERE Airportname LIKE '%${airportname}%' 
-    AND YEAR <![CDATA[ >= ]]>'${start}' AND YEAR <![CDATA[ <= ]]> '${end}'
-    GROUP BY MONTH
-    ORDER BY MONTH ASC
+    GROUP BY Airportname
+    ORDER BY SUM(VALUE) DESC
+    LIMIT 0,10
   </select>
   
-   <select id="selectbymonth" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--按年份，-->
+   <select id="selectbyyear" parameterType="java.lang.String" resultMap="BaseResultMap">
     SELECT YEAR,SUM(VALUE) AS VALUE
     FROM data_freight
     WHERE Airportname LIKE '%${airportname}%' 
-    AND MONTH <![CDATA[ >= ]]>'${start}' AND MONTH <![CDATA[ <= ]]> '${end}'
     GROUP BY YEAR
     ORDER BY YEAR ASC
   </select>
   
-  <select id="selectquery" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <!--按月份-->
+  <select id="selectbymonth" parameterType="java.lang.String" resultMap="BaseResultMap">
+   SELECT MONTH,SUM(VALUE) AS VALUE
+    FROM data_freight
+    WHERE Airportname LIKE '%${airportname}%' 
+    GROUP BY MONTH
+    ORDER BY MONTH ASC
+  </select>
+  
+    <select id="selectquery" parameterType="java.lang.String" resultMap="BaseResultMap">
    SELECT AIRPORTNAME,YEAR,MONTH,VALUE
     FROM data_freight
     WHERE Airportname LIKE '%${airportname}%' 
     AND MONTH <![CDATA[ >= ]]> '${monthstart}' AND MONTH <![CDATA[ <= ]]> '${monthend}'
     AND YEAR <![CDATA[ >= ]]> '${yearstart}' AND YEAR <![CDATA[ <= ]]> '${yearend}'
+    AND VALUE <![CDATA[ >= ]]> '${datalow}' AND VALUE <![CDATA[ <= ]]> '${datahigh}'
     ORDER BY AIRPORTNAME,YEAR,MONTH ASC
     LIMIT ${page},10
   </select>
@@ -126,6 +129,15 @@
     WHERE Airportname LIKE '%${airportname}%' 
     AND MONTH <![CDATA[ >= ]]> '${monthstart}' AND MONTH <![CDATA[ <= ]]> '${monthend}'
     AND YEAR <![CDATA[ >= ]]> '${yearstart}' AND YEAR <![CDATA[ <= ]]> '${yearend}'
+    AND VALUE <![CDATA[ >= ]]> '${datalow}' AND VALUE <![CDATA[ <= ]]> '${datahigh}'
+  </select>
+  
+  <!--地图-->
+  <select id="selectmap" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT Airportname,longitude,latitude,value
+    FROM data_freight
+    WHERE YEAR = '${year}' and MONTH = '${month}'
+    GROUP BY Airportname
   </select>
   
   
@@ -136,10 +148,16 @@
   
   
   
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from data_freight
-    where index = #{index,jdbcType=INTEGER}
-  </delete>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <delete id="deleteByExample" parameterType="com.datangedu.cn.model.sysUser.DataFreightExample">
     delete from data_freight
     <if test="_parameter != null">
@@ -147,17 +165,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.datangedu.cn.model.sysUser.DataFreight">
-    insert into data_freight (index, Airportname, Year, 
-      month, value)
-    values (#{index,jdbcType=INTEGER}, #{airportname,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, 
-      #{month,jdbcType=INTEGER}, #{value,jdbcType=DOUBLE})
+    insert into data_freight (Airportname, Year, month, 
+      value, longitude, latitude
+      )
+    values (#{airportname,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, #{month,jdbcType=INTEGER}, 
+      #{value,jdbcType=DOUBLE}, #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.datangedu.cn.model.sysUser.DataFreight">
     insert into data_freight
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="index != null">
-        index,
-      </if>
       <if test="airportname != null">
         Airportname,
       </if>
@@ -170,11 +187,14 @@
       <if test="value != null">
         value,
       </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="index != null">
-        #{index,jdbcType=INTEGER},
-      </if>
       <if test="airportname != null">
         #{airportname,jdbcType=VARCHAR},
       </if>
@@ -187,6 +207,12 @@
       <if test="value != null">
         #{value,jdbcType=DOUBLE},
       </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.datangedu.cn.model.sysUser.DataFreightExample" resultType="java.lang.Long">
@@ -198,9 +224,6 @@
   <update id="updateByExampleSelective" parameterType="map">
     update data_freight
     <set>
-      <if test="record.index != null">
-        index = #{record.index,jdbcType=INTEGER},
-      </if>
       <if test="record.airportname != null">
         Airportname = #{record.airportname,jdbcType=VARCHAR},
       </if>
@@ -213,6 +236,12 @@
       <if test="record.value != null">
         value = #{record.value,jdbcType=DOUBLE},
       </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=DOUBLE},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -220,39 +249,14 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update data_freight
-    set index = #{record.index,jdbcType=INTEGER},
-      Airportname = #{record.airportname,jdbcType=VARCHAR},
+    set Airportname = #{record.airportname,jdbcType=VARCHAR},
       Year = #{record.year,jdbcType=INTEGER},
       month = #{record.month,jdbcType=INTEGER},
-      value = #{record.value,jdbcType=DOUBLE}
+      value = #{record.value,jdbcType=DOUBLE},
+      longitude = #{record.longitude,jdbcType=DOUBLE},
+      latitude = #{record.latitude,jdbcType=DOUBLE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.datangedu.cn.model.sysUser.DataFreight">
-    update data_freight
-    <set>
-      <if test="airportname != null">
-        Airportname = #{airportname,jdbcType=VARCHAR},
-      </if>
-      <if test="year != null">
-        Year = #{year,jdbcType=INTEGER},
-      </if>
-      <if test="month != null">
-        month = #{month,jdbcType=INTEGER},
-      </if>
-      <if test="value != null">
-        value = #{value,jdbcType=DOUBLE},
-      </if>
-    </set>
-    where index = #{index,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.datangedu.cn.model.sysUser.DataFreight">
-    update data_freight
-    set Airportname = #{airportname,jdbcType=VARCHAR},
-      Year = #{year,jdbcType=INTEGER},
-      month = #{month,jdbcType=INTEGER},
-      value = #{value,jdbcType=DOUBLE}
-    where index = #{index,jdbcType=INTEGER}
   </update>
 </mapper>

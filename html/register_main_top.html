@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html style="width:100%;height:100%;">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
+
+</head>
+
+<body class="layui-bg-gray" style="width:100%;height:100%;">
+ 
+   
+  <!--您的Layui代码start-->
+  <div>
+    <ul class="layui-nav" lay-filter="">
+      <li class="layui-nav-item map"><a href="register_main_map.html">机场分布</a>
+        <!-- <dl class="layui-nav-child "> 二级菜单
+      <dd><a href="redirect?page=monitor_service">服务详情</a></dd></dl> -->
+      </li>
+      <li class="layui-nav-item trend"><a href="register_main_trend_year.html">走势图按年份</a>
+      </li>
+      <li class="layui-nav-item "><a href="register_main_trend_month.html">统计图按月份</a>
+      </li>
+      <li class="layui-nav-item year "><a href="register_main_year.html">按机场名,年份</a>
+      </li>
+      <li class="layui-nav-item month"><a href="register_main_month.html">按机场名,月份</a>
+      </li>
+      <li class="layui-nav-item top layui-this"><a href="register_main_top.html">TOP10</a>
+      </li>
+      <li class="layui-nav-item service"><a href="register_main_query.html">查询</a>
+      </li>
+      <li class="layui-nav-item forecast"><a href="register_main_forecast.html">预测</a>
+      </li>
+        <li class="layui-nav-item layui-layout-right">
+          <a href="register_center.html" class="user"><img src="//t.cn/RCzsdCq" class="layui-nav-img">四十四</a>
+          <dl class="layui-nav-child" style="margin-left:-5%;">
+            <dd><a href="register_center.html"><i class="layui-icon layui-icon-username"
+                  style="font-size: 20px; color: #1E9FFF;"></i>修改信息</a></dd>
+            <!-- <dd class="backups"><a><i class="layui-icon layui-icon-download-circle"
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库备份</a></dd>
+            <dd class="reduction"><a><i class="layui-icon layui-icon-upload-drag"
+                  style="font-size: 20px; color: #1E9FFF;"></i> 数据库还原</a></dd> -->
+            <dd class="exit"><a><i class="layui-icon layui-icon-logout" style="font-size: 20px; color: #FF5722;"></i>
+                退出</a></dd>
+          </dl>
+        </li>
+    </ul>
+  </div>
+
+
+  <div style="width:100%;height:1%;"> </div>
+  
+  <!-- <button type="button" id="freighttrend" class="layui-btn layui-btn-lg layui-btn-danger">货运</button>
+  <button type="button" id="passengetrend" class="layui-btn layui-btn-lg layui-btn-warm">客流</button> -->
+  <h1 class="layui-input-inline selectair" style="margin-left:10%;font-size:40px;font-weight:bold;font-family:微软雅黑;color:black">运量TOP 10</h1>
+  <!-- <input type="text" id="airportname" name="airportname" required lay-verify="required" placeholder="输入机场名查询单个机场" class="layui-input layui-input-inline"  style="width:200px;margin-left:10%;">
+  <input type="text" id="start" name="year" required lay-verify="required" placeholder="输入开始月份(2007-2020)" class="layui-input layui-input-inline"  style="width:200px;">
+  <input type="text" id="end" name="year" required lay-verify="required" placeholder="输入结束月份(2007-2020)" class="layui-input layui-input-inline"  style="width:200px;">
+  <button type="button" id="select" class="layui-btn layui-btn-normal">查询</button> -->
+  <br/><br/><br/>
+  <p id="freightfx" class="layui-input-inline" style="width:30%;height:10%;margin-left:10%;font-size:25px;font-weight:normal;font-family:微软雅黑;color:black">
+    显示总运量TOP 10的机场</p>
+  <!-- <div id="container"  style="width:50%;height:70%;margin-left:5%;"></div>
+  <div id="container"  style="width:50%;height:70%;margin-left:10%;"></div> -->
+  <div class="bt" style="width:100%;height:100%;"> 
+  <div class="layui-input-inline" id="freight" style="width:40%;height:80%;margin-left:3%;"></div>
+  <div class="layui-input-inline" id="passenger" style="width:40%;height:80%;margin-left:15%;"></div>
+  </div>
+  
+  <script src="https://www.layuicdn.com/layui/layui.js"></script>
+  <script src="./js/jquery-3.2.1.min.js"></script>
+  <script src="./js/echarts.min.js"></script>
+  <script src="./js/bmap.min.js"></script>
+  <script type="text/javascript" src="https://api.map.baidu.com/getscript?v=3.0&ak=B9oHkU9KnYrwcYCYrwVGa8TpKvtGsMNP&services=&t=20200702151529"></script>
+  <!-- <script src="./js/register_main_map.js"></script> -->
+  <script src="./js/register_main_top.js"></script>
+  <script src="./js/mysql.js"></script>
+</body>
+
+</html>

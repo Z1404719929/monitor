@@ -4,6 +4,7 @@ var trendname="货运走势图"
 var year;		//存年份
 var monthdata;		//存数据
 var unit;		//单位
+var airportname="所有"
 
 $(function () {
 	login();
@@ -29,7 +30,7 @@ $("#select").on("click", function () {
 	// }
 	$(".selectair").html("");
 	var txt = "";
-	txt += `显示 ${airportname} 机场 1 - 12 月数据(数据统计自2007年-到2020年2月)`
+	txt += `显示 ${airportname} 机场 1 - 12 月数据(07-20年数据)`
 	$(".selectair").append(txt);
 	freighttrend();
 	passengertrend();
@@ -42,7 +43,7 @@ function freighttrend() {
 		//请求类型
 		type: "post",
 		//请求路径
-		url: "/apiz/data_statistics/freight_month",
+		url: "/apiz/airtrend/freightbymonth",
 		//请求参数
 		data: {
 			airportname:$('#airportname').val(),
@@ -58,7 +59,8 @@ function freighttrend() {
 			trendname="货运统计图"
 			unit="吨";
 			year=data.year;
-			monthdata=data.data;
+			monthdata=data.sum;
+			data_ana()
 			echarts_trend();
 		},
 		error: function (data) {
@@ -66,13 +68,15 @@ function freighttrend() {
 		}
 	})
 }
+
+
 //查询客运机场分布
 function passengertrend() {
 	$.ajax({
 		//请求类型
 		type: "post",
 		//请求路径
-		url: "/apiz/data_statistics/passenger_month",
+		url: "/apiz/airtrend/passengerbymonth",
 		//请求参数
 		data: {
 			airportname:$('#airportname').val(),
@@ -88,13 +92,45 @@ function passengertrend() {
 			trendname="客运统计图"
 			unit="人次";
 			year=data.year;
-			monthdata=data.data;
+			monthdata=data.sum;
+			data_ana()
 			echarts_trend()
 		},
 		error: function (data) {
 			console.log("失败后返回的数据", data);
 		}
 	})
+}
+
+//文字分析
+function data_ana(){
+	var max=monthdata[0];
+	var min=monthdata[0];
+	var maxmonth=year[0];
+	var minmonth=year[0];
+	for(var i=0;i<monthdata.length;i++){
+		if(max<monthdata[i]){
+			max=monthdata[i];
+			maxmonth=year[i];
+		}
+		if(min>monthdata[i]){
+			min=monthdata[i]
+			minmonth=year[i];
+		}
+	}
+	if(status=="freight"){
+	$("#freightfx").html("");
+	var txt = "";
+		txt += `
+		表示07年到19年俄罗斯所有机场${trendname}的变化，其中货运量最多的是${maxmonth}月，为${max} ${unit}，最少的是${minmonth}月，为${min} ${unit}`
+	$("#freightfx").append(txt);}
+	else {
+		$("#passengerfx").html("");
+		var txt = "";
+			txt += `
+			表示07年到19年俄罗斯所有机场${trendname}的变化，其中客运量最多的是${maxmonth}月，为${max} ${unit}，最少的是${minmonth}月，为${min} ${unit}`
+		$("#passengerfx").append(txt);
+	}
 }
 
 
@@ -113,6 +149,13 @@ option = {
     tooltip: {
         trigger: 'item',
         formatter: '{a} <br/>{b} : {c} ({d}%)'
+	},
+	toolbox: {
+        show: true,
+        feature: {
+            dataView: {readOnly: false},
+            saveAsImage: {}
+        }
     },
     legend: {
         type: 'scroll',
@@ -135,7 +178,7 @@ option = {
                 itemStyle: {
                     shadowBlur: 10,
                     shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+					shadowColor: 'rgba(0, 0, 0, 0.5)'
                 }
             }
         }
@@ -167,42 +210,6 @@ function genData(count) {
 
 }
 
-
-
-
-
-
-
-
-// function echarts_trend(){
-// 	var container = echarts.init(document.getElementById(status));
-// 	option = {
-// 		title: {
-// 			text: trendname,
-// 		},
-// 		xAxis: {
-// 			type: 'category',
-// 			data: year,
-// 			name: '年',
-// 		},
-// 		yAxis: {
-// 			type: 'value',
-// 			name: unit,
-// 		},
-// 		tooltip: {
-// 			trigger: 'axis'
-// 		},
-// 		series: [{
-// 			data: monthdata,
-// 			type: 'bar',
-// 			showBackground: true,
-// 			backgroundStyle: {
-// 				color: 'rgba(220, 220, 220, 0.8)'
-// 			}
-// 		}]
-// 	};
-// 	container.setOption(option,true);	
-// }
 
 
 

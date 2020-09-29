@@ -1,6 +1,7 @@
 //用于显示统计图的js
 var status="freight"
 var trendname="货运统计图"
+var airportname="所有"
 var month;		//存月份
 var yeardata;	//存数据和
 var unit;		//单位
@@ -42,12 +43,12 @@ function freighttrend() {
 		//请求类型
 		type: "post",
 		//请求路径
-		url: "/apiz/data_statistics/freight_year",
+		url: "/apiz/airtrend/freight_year",
 		//请求参数
 		data: {
 			airportname:$('#airportname').val(),
-			start:$('#start').val(),
-			end:$('#end').val()
+			// start:$('#start').val(),
+			// end:$('#end').val()
 		},
 		//返回数据类型
 		dataType: "json",
@@ -57,11 +58,12 @@ function freighttrend() {
 			status="freight"
 			trendname="货运统计图"
 			unit="吨";
-			month=data.month;
-			yeardata=data.data;
+			month=data.year;
+			yeardata=data.sum;
 			console.log(yeardata,month);
+			data_ana()
 			echarts_trend();
-			console.log("成功后返回的数据");
+			// list(month,yeardata)
 		},
 		error: function (data) {
 			console.log("失败后返回的数据", data);
@@ -69,18 +71,20 @@ function freighttrend() {
 		}
 	})
 }
+
+
 //查询客运机场分布
 function passengertrend() {
 	$.ajax({
 		//请求类型
 		type: "post",
 		//请求路径
-		url: "/apiz/data_statistics/passenger_year",
+		url: "/apiz/airtrend/passenger_year",
 		//请求参数
 		data: {
 			airportname:$('#airportname').val(),
-			start:$('#start').val(),
-			end:$('#end').val()
+			// start:$('#start').val(),
+			// end:$('#end').val()
 		},
 		//返回数据类型
 		dataType: "json",
@@ -90,10 +94,11 @@ function passengertrend() {
 			status="passenger"
 			trendname="客运统计图"
 			unit="人次"
-			month=data.month;
-			yeardata=data.data;
-			console.log("258",yeardata,month);
+			month=data.year;
+			yeardata=data.sum;
+			data_ana()
 			echarts_trend()
+			// list(month,yeardata)
 		},
 		error: function (data) {
 			console.log("失败后返回的数据", data);
@@ -101,9 +106,41 @@ function passengertrend() {
 	})
 }
 
+//文字分析
+function data_ana(){
+	var max=yeardata[0];
+	var min=yeardata[0];
+	var maxmonth=month[0];
+	var minmonth=month[0];
+	for(var i=0;i<yeardata.length;i++){
+		if(max<yeardata[i]){
+			max=yeardata[i];
+			maxmonth=month[i];
+		}
+		if(min>yeardata[i]){
+			min=yeardata[i]
+			minmonth=month[i];
+		}
+	}
+	if(status=="freight"){
+	$("#freightfx").html("");
+	var txt = "";
+		txt += `
+		表示07年到19年俄罗斯所有机场${trendname}的变化，其中货运量最多的是${maxmonth}年，为${max} ${unit}，最少的是${minmonth}年，为${min} ${unit}`
+	$("#freightfx").append(txt);}
+	else {
+		$("#passengerfx").html("");
+		var txt = "";
+			txt += `
+			表示07年到19年俄罗斯所有机场${trendname}的变化，其中客运量最多的是${maxmonth}年，为${max} ${unit}，最少的是${minmonth}年，为${min} ${unit}`
+		$("#passengerfx").append(txt);
+	}
+}
 
 
 
+
+//饼图
 function echarts_trend(){
 	var container = echarts.init(document.getElementById(status));
 var data = genData(50);
@@ -116,6 +153,13 @@ option = {
     tooltip: {
         trigger: 'item',
         formatter: '{a} <br/>{b} : {c} ({d}%)'
+	},
+	toolbox: {
+		show: true,
+        feature: {
+            dataView: {readOnly: false},
+            saveAsImage: {}
+        }
     },
     legend: {
         type: 'scroll',

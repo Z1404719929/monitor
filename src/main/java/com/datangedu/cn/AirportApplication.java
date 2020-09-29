@@ -1,29 +1,14 @@
 package com.datangedu.cn;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-import com.datang.hrb.util.MD5Util;
-import com.jcraft.jsch.ChannelExec;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
+import com.datangedu.cn.model.sysUser.FreightForecast;
 
 
 
@@ -38,9 +23,15 @@ public class AirportApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) throws Exception{
 		SpringApplication.run(AirportApplication.class, args);
-//		HiveApi api=new HiveApi();
-//		api.init();
-//		api.createDatabase();
-//		api.destory();
+//		List list = new ArrayList<>();
+//		List<FreightForecast> a=new ArrayList<FreightForecast>();
+//		FreightForecast b=new FreightForecast();
+//		b.setAirportname("a");
+//		for(int i=0;i<10;i++) {
+//			a.add(i,b);
+//			System.out.println(a.get(i).getAirportname());
+//		}
+		
+		
 	}
 }
